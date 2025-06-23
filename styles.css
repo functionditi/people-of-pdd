@@ -32,7 +32,7 @@ html, body {
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden !important;
   max-height: 100vh;
 }
 
@@ -161,8 +161,8 @@ html, body {
 }
 
 .step {
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: 2px solid #2a9df4;
   margin: 0 8px;
