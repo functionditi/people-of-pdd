@@ -446,8 +446,7 @@ html, body {
   html, body {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
-    overscroll-behavior: none;
+   
   }
 
 
@@ -457,6 +456,11 @@ html, body {
     align-items: center;
     /* min-height: 100vh;   */
     padding: 40px 20px; /* safe space top/bottom */
+  }
+  
+  .char-page{
+     overflow: hidden;
+    overscroll-behavior: none;
   }
 
   .card-wrapper {
@@ -480,17 +484,16 @@ html, body {
   }
 
   .title {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .hello {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .card-content h3 {
     font-size: 0.8rem;
     line-height: 1.1;
-    
   }
 
   .character {
@@ -512,6 +515,12 @@ html, body {
     top: -30px;
     right: -40px;
     transform: rotate(15deg);
+  }
+
+  .circle-button.extrasmall {
+    width: 20px;
+    height: 20px;
+    font-size: 0.8rem;
   }
 
   .circle-button.small {
@@ -547,9 +556,10 @@ html, body {
   }
 
   .back-buttons {
-    position: static;
-    transform: none;
-    gap: 10px;
+     width: 100%;            /* optional: make it span full width */
+    display: flex;          
+    justify-content: center;
+    gap: 10px;              /* keep your spacing */
   }
 
   /* steps now inline with back buttons on mobile */
@@ -560,11 +570,11 @@ html, body {
   }
 
   .title-section h1 {
-    font-size: 1.8rem;
+    font-size: 1.5em;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   builder-section {
