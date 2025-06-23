@@ -29,11 +29,11 @@ html, body {
 }
 
 .char-page {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
-  overflow: hidden !important;
-  max-height: 100vh;
+  overflow: hidden;
 }
 
 *, *:before, *:after {
@@ -104,6 +104,7 @@ html, body {
   align-items: center;
   justify-content: center;
   padding: 60px 120px;
+  flex: 1 1 16.666%; /* 1/6 */
 }
 
 .header-top {
@@ -134,6 +135,7 @@ html, body {
 .text-back:hover {
   opacity: 0.9;
 }
+
 
 /* ---------------------------------------
    5) HEADER TITLE SECTION
@@ -181,14 +183,14 @@ html, body {
    6.2) BUILDER SECTION (CHARACTER PAGE)
 --------------------------------------- */
 .builder-section {
-  flex: 1;
-  background: none;
-  
+  position: relative; /* <== important! */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px;
   width: 100%;
+  flex: 1 1 66.666%; /* 4/6 */
+  overflow: hidden; /* optional: avoid accidental overflow */
 }
 
 #rig {
@@ -223,7 +225,7 @@ html, body {
 }
 
 .legs{
-  transform: translateY(-40px)translateX(-400px);
+  transform: translateY(60px)translateX(-400px);
 }
 
 
@@ -312,6 +314,18 @@ width: 250px;
   transform: translateX(-50%);
   width: 100%;
 }
+
+/* ---------------------------------------
+   6.3) FOOTER
+--------------------------------------- */
+
+.footer-section {
+  flex: 1 1 16.666%; /* 1/6 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 
@@ -673,7 +687,7 @@ width: 250px;
     }
 
     .legs{
-      transform: translateY(50px) translateX(-170px);
+      transform: translateY(50px) translateX(-150px);
     }
 
 

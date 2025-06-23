@@ -17,8 +17,8 @@
 </head>
 
 <body class="char-page">
-  <!-- HEADER -->
-   <header class="header">
+  <!-- HEADER: 1/6 -->
+  <header class="header">
     <div class="header-top">
       <div class="back-buttons">
         <button class="circle-button small blue-bg" onclick="goBack()">←</button>
@@ -27,7 +27,6 @@
     </div>
 
     <div class="title-section">
-      
       <h1>LET'S CREATE A PDD CHARACTER!</h1>
       <div class="steps">
         <div class="step active"></div>
@@ -39,69 +38,50 @@
     </div>
   </header>
 
-  <!-- BUILDER SECTION -->
+  <!-- BUILDER: 4/6 -->
   <main class="builder-section">
-     <svg id="rig" width="800" height="800" viewBox="0 0 800 800"></svg>
-    <!-- Bones & nodes will be auto-generated -->
-    </svg>
+    <svg id="rig" width="800" height="800" viewBox="0 0 800 800"></svg>
     <div class="head">
-          <ul class="list">
-          <li class="hide"></li>
-          <li class="prev"></li>
-          <li class="act"></li>
-          <li class="next"></li>
-          <li class="next new-next"></li>
-        </ul>
-      
-        <div class="swipe"></div>
-
+      <ul class="list">
+        <li class="hide"></li>
+        <li class="prev"></li>
+        <li class="act"></li>
+        <li class="next"></li>
+        <li class="next new-next"></li>
+      </ul>
+      <div class="swipe"></div>
     </div>
 
-     <div class="torso">
-          <ul class="list">
-          <li class="hide"></li>
-          <li class="prev"></li>
-          <li class="act"></li>
-          <li class="next"></li>
-          <li class="next new-next"></li>
-        </ul>
-      
-        <div class="swipe"></div>
-
+    <div class="torso">
+      <ul class="list">
+        <li class="hide"></li>
+        <li class="prev"></li>
+        <li class="act"></li>
+        <li class="next"></li>
+        <li class="next new-next"></li>
+      </ul>
+      <div class="swipe"></div>
     </div>
 
-     <div class="legs">
-          <ul class="list">
-          <li class="hide"></li>
-          <li class="prev"></li>
-          <li class="act"></li>
-          <li class="next"></li>
-          <li class="next new-next"></li>
-        </ul>
-      
-        <div class="swipe"></div>
-
+    <div class="legs">
+      <ul class="list">
+        <li class="hide"></li>
+        <li class="prev"></li>
+        <li class="act"></li>
+        <li class="next"></li>
+        <li class="next new-next"></li>
+      </ul>
+      <div class="swipe"></div>
     </div>
-
-    <!-- <div class="shoes">
-          <ul class="list">
-          <li class="hide"></li>
-          <li class="prev"></li>
-          <li class="act"></li>
-          <li class="next"></li>
-          <li class="next new-next"></li>
-        </ul>
-      
-        <div class="swipe"></div>
-
-    </div> -->
-
-
-    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
-
-
   </main>
+   <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+
+  <!-- FOOTER: 1/6 -->
+  <footer class="footer-section">
+    <button class="text-back">NEXT</button>
+  </footer>
 </body>
+
 
 <script>
   function goBack() {
@@ -152,6 +132,7 @@ const svgWidth = svg.viewBox.baseVal.width;
 const svgHeight = svg.viewBox.baseVal.height;
 
 let scale;
+ let yspacing= 70;
 window.addEventListener('resize', setScaleForViewport);
 
 
@@ -315,11 +296,18 @@ animate();
 
 // === INIT ===
 
+
+
 function updateNodes() {
   Object.entries(baseRig).forEach(([name, pos]) => {
+   if (window.innerWidth <= 768)
+      yspacing= 0;
+    else
+      yspacing=100;
+
     nodes[name] = {
       x: origin.x + pos.x * scale,
-      y: origin.y + pos.y * scale
+      y: origin.y + yspacing + pos.y * scale
     };
   });
 }
@@ -479,12 +467,20 @@ document.querySelectorAll('.list').forEach((listEl, i) => {
 })
 
 function positionCarousels() {
+
+  
   // head node
   const headPos = svgPointToClient(nodes.head.x, nodes.head.y)
   const headDiv = document.querySelector('.head')
   headDiv.style.left = `${headPos.x}px`
-  headDiv.style.top  = `${headPos.y-250}px`
+  
+  if (window.innerWidth <= 768)
+      headDiv.style.top  = `${headPos.y-(yspacing+250)}px`
+  else
+      headDiv.style.top  = `${headPos.y-(yspacing+150)}px`
 
+
+  
   // torso center = average of shoulderL, shoulderR, hipR, hipL
   const keys = ['shoulderL','shoulderR','hipR','hipL']
   const sum = keys.reduce((acc,k) => {
@@ -496,7 +492,11 @@ function positionCarousels() {
   const torsoPos = svgPointToClient(avg.x, avg.y)
   const torsoDiv = document.querySelector('.torso')
   torsoDiv.style.left = `${torsoPos.x}px`
-  torsoDiv.style.top  = `${torsoPos.y-260}px`
+  
+   if (window.innerWidth <= 768)
+      torsoDiv.style.top  = `${torsoPos.y-(yspacing+220)}px`
+  else
+      torsoDiv.style.top  = `${torsoPos.y-(yspacing+150)}px`
 
   //leg 
   const kneeLClient = svgPointToClient(nodes.kneeL.x, nodes.kneeL.y);
@@ -506,8 +506,9 @@ function positionCarousels() {
   const legsDiv = document.querySelector('.legs');
   legsDiv.style.left = `${kneeAvgX}px`;
   // adjust the vertical offset as needed; using same −250 for now
-  legsDiv.style.top  = `${kneeAvgY - 150}px`;
-  console.log(legsDiv.style.top)
+  legsDiv.style.top  = `${kneeAvgY + 0}px`;
+  
+  
 }
 
 
