@@ -1,0 +1,560 @@
+/* ---------------------------------------
+   1) FONT
+--------------------------------------- */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('./assets/fonts/PPMori-SemiBold.otf') format('opentype');
+}
+
+/* ---------------------------------------
+   2) RESET & BASE
+--------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'PP Mori', sans-serif;
+  background: white;
+  color: #2a9df4;
+  box-sizing: border-box;
+}
+
+.homepage{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* ---------------------------------------
+   3) REUSABLE CIRCLE BUTTON
+--------------------------------------- */
+.circle-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+
+.circle-button.extrasmall {
+  width: 30px;
+  height: 30px;
+  font-size: 1.0rem;
+}
+
+.circle-button.small {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+}
+
+.circle-button.medium {
+  width: 70px;
+  height: 70px;
+  font-size: 1.8rem;
+}
+
+.circle-button:hover {
+  background-color: transparent;
+  border: 3px solid currentColor;
+  color: currentColor;
+}
+
+/* COLOR HELPERS */
+.blue-bg {
+  background-color: #58aaf7;
+  color: white;
+}
+
+.orange-bg {
+  background-color: #e85e24;
+  color: white;
+}
+
+.yellow-bg {
+  background-color: #f4b63d;
+  color: white;
+}
+
+/* ---------------------------------------
+   4) HEADER
+--------------------------------------- */
+.header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 120px;
+}
+
+.header-top {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.back-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.text-back {
+  background: #2a9df4;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.text-back:hover {
+  opacity: 0.9;
+}
+
+/* ---------------------------------------
+   5) HEADER TITLE SECTION
+--------------------------------------- */
+
+.title-section {
+  text-align: center;
+  /* max-width: 600px; */
+}
+
+.title-section h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.title-section h2{
+    margin: 0;
+    padding: 0;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.step {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #2a9df4;
+  margin: 0 8px;
+}
+
+.step.active {
+  background: #2a9df4;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ---------------------------------------
+   6.2) BUILDER SECTION (CHARACTER PAGE)
+--------------------------------------- */
+.builder-section {
+  flex: 1;
+  background: none;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  width: 100%;
+}
+
+#rig {
+  border: none; 
+}
+
+
+/* ---------------------------------------
+   6.1) BUILDER SECTION (SVG ASSETS)
+--------------------------------------- */
+/* === Assets Rows === */
+
+.list {
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%)
+}
+
+.list li {
+  list-style-type: none;
+  
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  border-radius: 2px;
+  /* background: #9C89B8; */
+  transition: transform 1s, opacity 1s;
+}
+
+.list .act {
+  opacity: 1;
+}
+
+.list .prev,
+.list .next {
+  cursor: pointer;
+}
+
+.list .prev {
+  transform: translateX(-220px) scale(.85);
+}
+
+.list .next {
+  transform: translateX(220px) scale(.85);
+}
+
+.list .hide {
+  transform: translateX(-420px) scale(.85);
+}
+
+.list .new-next {
+  transform: translateX(420px) scale(.85);
+}
+
+.list .hide,
+.list .new-next {
+  opacity: 0;
+  transition: opacity .5s, transform .5s;
+}
+
+
+.swipe {
+  width: 270px;
+  height: 200px;
+  position: absolute;
+  background-color: green;
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 0;
+}
+
+
+.builder-section 
+{ position: relative; }
+
+.head {
+  position: absolute; /* now top,left will move it */
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.torso {
+  position: absolute; /* now top,left will move it */
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+
+/* ---------------------------------------
+   7) HOME PAGE CONTAINER & CARDS
+--------------------------------------- */
+.container {
+  text-align: center;
+}
+
+.hello {
+  color: orange;
+  font-size: 1.2rem;
+}
+
+.title {
+  color: #4a90e2;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.card-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.card-content {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 1;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+}
+
+.card-content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+/* Reuse circle button for corner circles */
+.corner-circle {
+  position: absolute;
+  z-index: 2;
+}
+
+.corner-circle .icon {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.card-wrapper:hover .corner-circle .icon {
+  color: currentColor;
+}
+
+/* Specific corner positions */
+.corner-circle.blue-bg {
+  bottom: 0;
+  left: 0;
+}
+
+.corner-circle.orange-bg {
+  top: 0;
+  right: 0;
+}
+
+.corner-circle.yellow-bg {
+  bottom: 0;
+  right: 0;
+}
+
+/* ---------------------------------------
+   8) CHARACTERS (IMAGES)
+--------------------------------------- */
+.character {
+  position: absolute;
+  width: 120px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.character-1 {
+  bottom: -50px;
+  right: 10px;
+}
+
+.character-2 {
+  bottom: -10px;
+  right: 0;
+  transform: rotate(-20deg);
+}
+
+.character-3 {
+  top: -40px;
+  right: -40px;
+  transform: rotate(25deg);
+}
+
+.card-wrapper:hover .character {
+  animation: wiggle 0.4s ease-in-out;
+}
+
+
+
+
+
+/* ---------------------------------------
+   9) ANIMATIONS
+--------------------------------------- */
+@keyframes wiggle {
+  0% { transform: rotate(0turn); }
+  25% { transform: rotate(-0.05turn); }
+  75% { transform: rotate(0.05turn); }
+  100% { transform: rotate(0turn); }
+}
+
+/* ---------------------------------------
+   10) RESPONSIVE
+--------------------------------------- */
+@media (max-width: 768px) {
+  
+    html, body {
+      width: 100vw; 
+      overflow: hidden;
+    }
+
+    .homepage {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;  /* allow scrolling */
+    padding: 40px 20px; /* safe space top/bottom */
+  }
+
+  .card-wrapper:active {
+    transform: scale(0.98);
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 60px; /* slightly tighter gap than 100px for mobile comfort */
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .hello {
+    font-size: 1.5rem;
+  }
+
+  .card-content h3 {
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+
+  .character {
+    width: 100px;
+  }
+
+  .character-1 {
+    bottom: -20px;
+    right: 20px;
+  }
+
+  .character-2 {
+    bottom: -10px;
+    right: 10px;
+    transform: rotate(-10deg);
+  }
+
+  .character-3 {
+    top: -30px;
+    right: -10px;
+    transform: rotate(15deg);
+  }
+
+  .circle-button.small {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .circle-button.medium {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .text-back {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 20px;
+  }
+
+  .header-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: static;
+    transform: none;
+  }
+
+  .back-buttons {
+    position: static;
+    transform: none;
+    gap: 10px;
+  }
+
+  /* steps now inline with back buttons on mobile */
+  .title-section {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .title-section h1 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  builder-section {
+    max-width: 100vw;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+  }
+
+  /* make the svg rig scale to viewport */
+  #rig {
+    width: 90vw;
+    height: auto;
+    max-width: 100vw;
+  }
+
+
+  
+
+ 
+}
