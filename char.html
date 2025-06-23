@@ -69,6 +69,32 @@
 
     </div>
 
+     <div class="legs">
+          <ul class="list">
+          <li class="hide"></li>
+          <li class="prev"></li>
+          <li class="act"></li>
+          <li class="next"></li>
+          <li class="next new-next"></li>
+        </ul>
+      
+        <div class="swipe"></div>
+
+    </div>
+
+    <!-- <div class="shoes">
+          <ul class="list">
+          <li class="hide"></li>
+          <li class="prev"></li>
+          <li class="act"></li>
+          <li class="next"></li>
+          <li class="next new-next"></li>
+        </ul>
+      
+        <div class="swipe"></div>
+
+    </div> -->
+
 
     <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 
@@ -419,25 +445,32 @@ const hats = [
   './assets/char/hair-hat/hair-hat-05.svg'
 ];
 const torsos = [
+  './assets/char/torso/torso-01.svg',
+  './assets/char/torso/torso-02.svg',
+  './assets/char/torso/torso-03.svg',
+  './assets/char/torso/torso-04.svg',
+  './assets/char/torso/torso-05.svg',
+  // './assets/char/torso/torso-06.svg',
+  // './assets/char/torso/torso-07.svg',
+  
+];
+const legs = [
+  './assets/char/legs/legs-01.svg',
+  './assets/char/legs/legs-02.svg',
+  './assets/char/legs/legs-03.svg',
+  './assets/char/legs/legs-04.svg',
+  './assets/char/legs/legs-05.svg'
+];
+const shoes = [
   './assets/char/hair-hat/hair-hat-01.svg',
   './assets/char/hair-hat/hair-hat-02.svg',
   './assets/char/hair-hat/hair-hat-03.svg',
   './assets/char/hair-hat/hair-hat-04.svg',
   './assets/char/hair-hat/hair-hat-05.svg'
 ];
-// const legs = [
-//   './assets/char/legs/legs-01.svg',
-//   './assets/char/legs/legs-02.svg',
-//   // …
-// ];
-// const shoes = [
-//   './assets/char/shoes/shoes-01.svg',
-//   './assets/char/shoes/shoes-02.svg',
-//   // …
-// ];
 
 // 2. build imageSets with those named arrays
-const imageSets = [ hats, torsos ];
+const imageSets = [ hats, torsos, legs, shoes ];
 
 document.querySelectorAll('.list').forEach((listEl, i) => {
   const swipeEl = document.querySelectorAll('.swipe')[i]
@@ -462,7 +495,18 @@ function positionCarousels() {
   const torsoPos = svgPointToClient(avg.x, avg.y)
   const torsoDiv = document.querySelector('.torso')
   torsoDiv.style.left = `${torsoPos.x}px`
-  torsoDiv.style.top  = `${torsoPos.y-250}px`
+  torsoDiv.style.top  = `${torsoPos.y-260}px`
+
+  //leg 
+  const kneeLClient = svgPointToClient(nodes.kneeL.x, nodes.kneeL.y);
+  const kneeRClient = svgPointToClient(nodes.kneeR.x, nodes.kneeR.y);
+  const kneeAvgX = (kneeLClient.x + kneeRClient.x) / 2;
+  const kneeAvgY = (kneeLClient.y + kneeRClient.y) / 2;
+  const legsDiv = document.querySelector('.legs');
+  legsDiv.style.left = `${kneeAvgX}px`;
+  // adjust the vertical offset as needed; using same −250 for now
+  legsDiv.style.top  = `${kneeAvgY - 150}px`;
+  console.log(legsDiv.style.top)
 }
 
 

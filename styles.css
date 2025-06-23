@@ -212,16 +212,42 @@ html, body {
 .list li {
   list-style-type: none;
   
-  width: 150px;
-  height: 150px;
+  
   opacity: 1;
   position: absolute;
   left: 50%;
-  margin-left: -75px;
+  
   border-radius: 2px;
   /* background: #9C89B8; */
   transition: transform 1s, opacity 1s;
 }
+
+.legs{
+  transform: translateY(-40px)translateX(-400px);
+}
+
+
+
+.head li{
+  width: 150px;
+  height: 150px;
+  margin-left: -75px;
+}
+
+.torso li{
+width: 250px;
+  height: 250px;
+  margin-left: -125px;
+}
+
+.legs li{
+  width: 250px;
+  height: 250px;
+  margin-left: -125px;
+}
+
+
+
 
 .list .act {
   opacity: 1;
@@ -449,7 +475,6 @@ html, body {
    
   }
 
-
     .homepage {
     flex-direction: column;
     justify-content: flex-start;
@@ -471,7 +496,6 @@ html, body {
     transition: transform 0.3s ease;
     
   }
-
 
   .card-wrapper:active {
     transform: scale(0.98);
@@ -603,17 +627,34 @@ html, body {
   .list li {
     list-style-type: none;
     
-    width: 100px;
-    height: 100px;
+    /* width: 100px;
+    height: 100px; */
     opacity: 1;
     position: absolute;
     left: 50%;
-    margin-left: -50px;
+    /* margin-left: -50px; */
     border-radius: 2px;
     /* background: #9C89B8; */
     transition: transform 1s, opacity 1s;
   }
 
+  .head li{
+      width: 100px;
+      height: 100px;
+      margin-left: -50px;
+    }
+
+    .torso li{
+    width: 130px;
+      height: 130px;
+      margin-left: -65px;
+    }
+
+    .legs li{
+      width: 130px;
+      height: 130px;
+      margin-left: -65px;
+    }
 
   .list .prev {
       transform: translateX(-100px) scale(.85);
@@ -630,6 +671,11 @@ html, body {
     .list .new-next {
       transform: translateX(420px) scale(.85);
     }
+
+    .legs{
+      transform: translateY(50px) translateX(-170px);
+    }
+
 
   
 
