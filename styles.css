@@ -195,7 +195,28 @@ html, body {
 
 #rig {
   border: none; 
+  /* z-index: 99; */
 }
+
+.rig-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;   /* adjust width as needed */
+  height: 100%;    /* tall vertical bar */
+  background-color: #2a9df4; /* your blue */
+  z-index: 0;     /* behind SVG & carousels */
+  border-radius: 40px; /* optional: rounded edges */
+}
+
+/* ensure builder-section is positioned relatively */
+.builder-section {
+  position: relative;
+  flex: 1 1 66.666%;
+  overflow: hidden;
+}
+
 
 
 /* ---------------------------------------
@@ -629,6 +650,18 @@ width: 250px;
     max-width: 100vw;
   }
 
+
+  .rig-background {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90px;   /* adjust width as needed */
+      height: 80%;    /* tall vertical bar */
+      background-color: #2a9df4; /* your blue */
+      z-index: 0;     /* behind SVG & carousels */
+      border-radius: 20px; /* optional: rounded edges */
+    }
 
     .list {
     height: 150px;
