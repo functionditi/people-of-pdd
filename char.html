@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 minimum-scale=1.0,
+                 user-scalable=no">
   <title>Create Your Character</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -66,6 +72,17 @@
     </div>
 
     <div class="legs">
+      <ul class="list">
+        <li class="hide"></li>
+        <li class="prev"></li>
+        <li class="act"></li>
+        <li class="next"></li>
+        <li class="next new-next"></li>
+      </ul>
+      <div class="swipe"></div>
+    </div>
+
+     <div class="shoes">
       <ul class="list">
         <li class="hide"></li>
         <li class="prev"></li>
@@ -315,7 +332,22 @@ function updateNodes() {
 }
 
 
+
 // ROW SWIPING
+
+/**
+ * fetches an SVG file and injects its text into the target element
+ * @param {string} src — path to your .svg file
+ * @param {HTMLElement} targetEl — container where the inline SVG will go
+ */
+function loadInlineSVG(src, targetEl) {
+  fetch(src)
+    .then(res => res.text())
+    .then(svgText => {
+      targetEl.innerHTML = svgText;
+    })
+    .catch(err => console.error('failed to load SVG:', src, err));
+}
 
 
 class Carousel {
@@ -344,18 +376,25 @@ class Carousel {
     this.createNavButtons()
   }
 
-  buildSlides() {
-    this.listEl.innerHTML = ''
-    this.images.forEach(src => {
-      const li = document.createElement('li')
-      const img = document.createElement('img')
-      img.src = src
-      img.style.width = '100%'
-      img.style.height = '100%'
-      li.appendChild(img)
-      this.listEl.appendChild(li)
-    })
-  }
+ buildSlides() {
+  this.listEl.innerHTML = ''
+  this.images.forEach(src => {
+    const li = document.createElement('li')
+    // create a div to hold the inline SVG
+    const svgContainer = document.createElement('div')
+    svgContainer.classList.add('svg-container')
+    // size it to fill the <li>
+    svgContainer.style.width  = '100%'
+    svgContainer.style.height = '100%'
+
+    // fetch & inject the SVG markup
+    loadInlineSVG(src, svgContainer)
+
+    li.appendChild(svgContainer)
+    this.listEl.appendChild(li)
+  })
+}
+
 
   updateClasses() {
     const items = Array.from(this.listEl.children)
@@ -453,15 +492,15 @@ const legs = [
   './assets/char/legs/legs-05.svg'
 ];
 const shoes = [
-  './assets/char/hair-hat/hair-hat-01.svg',
-  './assets/char/hair-hat/hair-hat-02.svg',
-  './assets/char/hair-hat/hair-hat-03.svg',
-  './assets/char/hair-hat/hair-hat-04.svg',
-  './assets/char/hair-hat/hair-hat-05.svg'
+  './assets/char/shoes/shoes-01.svg',
+  './assets/char/shoes/shoes-02.svg',
+  './assets/char/shoes/shoes-03.svg',
+  './assets/char/shoes/shoes-04.svg',
+  './assets/char/shoes/shoes-05.svg'
 ];
 
 // 2. build imageSets with those named arrays
-const imageSets = [ hats, torsos, legs, shoes ];
+const imageSets = [ hats, torsos, legs, shoes];
 
 document.querySelectorAll('.list').forEach((listEl, i) => {
   const swipeEl = document.querySelectorAll('.swipe')[i]
@@ -479,7 +518,7 @@ function positionCarousels() {
   if (window.innerWidth <= 768)
       headDiv.style.top  = `${headPos.y-(yspacing+250)}px`
   else
-      headDiv.style.top  = `${headPos.y-(yspacing+150)}px`
+      headDiv.style.top  = `${headPos.y-(yspacing+120)}px`
 
 
   
@@ -512,6 +551,8 @@ function positionCarousels() {
   
   
 }
+
+
 
 
 
