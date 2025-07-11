@@ -163,10 +163,10 @@ html, body {
 }
 
 .step {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 2px solid #2a9df4;
+  border: 4px solid #2a9df4;
   margin: 0 8px;
 }
 
@@ -197,6 +197,17 @@ html, body {
   border: none; 
   /* z-index: 99; */
 }
+
+/* .carousel-nav {
+  display: none !important;
+} */
+
+ /* show nav buttons only in stage-1 & stage-2 */
+/* body.stage-1 .carousel-nav,
+body.stage-2 .carousel-nav {
+  display: inline-flex !important;
+} */
+
 
 .rig-background {
   position: absolute;
@@ -255,14 +266,16 @@ html, body {
   border-radius: 2px;
   /* background: #9C89B8; */
   transition: transform 1s, opacity 1s;
+  
 }
 
+
 .legs{
-  transform: translateY(60px)translateX(-400px);
+  transform: translateY(50px)translateX(-400px);
 }
 
 .shoes{
-  transform: translateY(200px)translateX(-400px);
+  transform: translateY(190px)translateX(-400px);
 }
 
 .head {
@@ -285,15 +298,21 @@ html, body {
 
 
 .head li{
-  width: 150px;
-  height: 150px;
-  margin-left: -75px;
+  width: 130px;
+  height: 130px;
+  margin-left: -65px;
 }
 
-.torso li{
+/* .torso li{
 width: 250px;
   height: 250px;
   margin-left: -125px;
+} */
+
+.torso li{
+width: 240px;
+  height: 240px;
+  margin-left: -120px;
 }
 
 .legs li{
@@ -302,11 +321,38 @@ width: 250px;
   margin-left: -125px;
 }
 
+/* .legs li{
+  width: 180px;
+  height: 180px;
+  margin-left: -90px;
+} */
+
+
 .shoes li{
-  width: 150px;
-  height: 150px;
-  margin-left: -75px;
+  width: 180px;
+  height: 180px;
+  margin-left: -90px;
 }
+.head {
+  position: absolute;
+  z-index: 4;
+}
+
+.torso {
+  position: absolute;
+  z-index: 3;
+}
+
+.legs {
+  /* position: absolute; */
+  z-index: 2;
+}
+
+.shoes {
+  /* position: absolute; */
+  z-index: 1;
+}
+
 
 
 
@@ -321,19 +367,19 @@ width: 250px;
 }
 
 .list .prev {
-  transform: translateX(-220px) scale(.85);
+  transform: translateX(-220px) scale(.60);
 }
 
 .list .next {
-  transform: translateX(220px) scale(.85);
+  transform: translateX(220px) scale(.60);
 }
 
 .list .hide {
-  transform: translateX(-420px) scale(.85);
+  transform: translateX(-420px) scale(.60);
 }
 
 .list .new-next {
-  transform: translateX(420px) scale(.85);
+  transform: translateX(420px) scale(.70);
 }
 
 .list .hide,
@@ -341,6 +387,20 @@ width: 250px;
   opacity: 0;
   transition: opacity .5s, transform .5s;
 }
+
+/* base state: fully visible */
+.list .svg-container {
+  opacity:      1;
+  transform:    scale(1);
+  transition:   opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* when the UL has is-animating, fade out & shrink */
+.list.is-animating .svg-container {
+  opacity:      0;
+  transform:    scale(0.95);
+}
+
 
 
 .swipe {
@@ -359,6 +419,380 @@ width: 250px;
 .builder-section 
 { position: relative; }
 
+/* Stage-3: hide everything but the head, center & zoom it */
+body.stage-3 {
+  overflow: hidden; /* prevent scrollbars when we blow it up */
+}
+
+
+/* body.stage-3 .torso, */
+body.stage-3 .legs,
+body.stage-3 .shoes,
+body.stage-3 .rig-background {
+  /* display: none; */
+   opacity: 0;
+   /* transition: opacity   0.7s ease; */
+}
+
+body.stage-3 main.builder-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* fill screen */
+}
+
+
+
+/* if you still need to fade this zoom like your carousels: */
+body.stage-3 .head {
+  /* transition: transform 0.3s ease, opacity 0.3s ease; */
+}
+
+
+
+
+/* hide every <li> except the .act one in the head carousel */
+body.stage-3 .head .list li:not(.act),
+body.stage-3 .torso .list li:not(.act) {
+  display: none !important;
+}
+
+/* hide the swipe area if you like */
+body.stage-3 .head .swipe,
+body.stage-3 .torso .swipe {
+  display: none !important;
+}
+
+body.stage-3 .head {
+  position: fixed !important;
+  top:      50%   !important;
+  left:     50%   !important;
+  transform: translateX(-50%) scale(3);
+  transform-origin: center center;
+  /* transition: transform 0.7s ease;  */
+  z-index: 1000 !important;
+}
+
+body.stage-3 .torso {
+  position: fixed !important;
+  top:      80%   !important;
+  left:     50%   !important;
+  transform: translateX(-50%) scale(3);
+  transform-origin: center center;
+  /* transition: transform 0.7s ease;  */
+  z-index: 0 !important;
+}
+
+
+/* ---------------------------------------
+   STAGE-3: FLOAT NEXT/BACK OVER TORSO
+--------------------------------------- */
+
+
+/* keep footer in its normal spot but on top of the torso in stage-3 */
+body.stage-3 .footer-section {
+  position: relative;      /* make z-index apply without re-positioning */
+  z-index: 1003 !important; /* higher than head (1000), canvas (1001), toolbar (1002) */
+}
+
+
+body.stage-3 .footer-section .back-btn,
+body.stage-3 .footer-section .next-btn {
+  /* ensure they keep their pill shape */
+  display: inline-flex;
+}
+
+body.stage-3 .draw-toolbar {
+  position: fixed !important;
+  /* vertically center on the head */
+  top: 50%;
+  transform: translateY(-50%);
+  /* place just to the right of the head’s center point */
+  left: calc(50% + 200px);
+  /* keep your existing flex layout */
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  z-index: 10;
+}
+
+/* ensure each card can position its corner circle */
+body.stage-3 .draw-toolbar .card-wrapper {
+  position: relative;
+}
+
+body.stage-3 .draw-toolbar .card-wrapper {
+  width: 150px;    /* shrink from 240px */
+  height: 150px;   /* shrink from 240px */
+  transform: none; /* remove any scale inherited */
+}
+
+body.stage-3 .draw-toolbar .card-wrapper .card-bg {
+  width: 100%;
+  height: 100%;
+}
+
+body.stage-3 .draw-toolbar .card-content {
+  padding: 8px;    /* tighten up text/swatches */
+}
+
+/* optionally shrink the corner icon a bit */
+body.stage-3 .draw-toolbar .corner-circle {
+  transform: scale(0.6);
+}
+
+/*  show carousel arrows in stage-1 & stage-2 */
+body:not(.stage-3):not(.stage-4) .carousel-nav {
+  display: inline-flex !important;
+}
+
+
+
+
+
+
+/* override the orange corner (color-picker card) */
+body.stage-3 .draw-toolbar .corner-circle.orange-bg {
+  top: -15px !important;
+  right: -15px !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+
+/* make sure your prev/next buttons are visible in stage-2 */
+body.stage-2 .carousel-nav {
+  display: inline-flex !important;
+  /* or `flex` if you’re using `display: flex` elsewhere */
+}
+
+
+
+/* ---------------------------------------
+   6.3) STAGE 3 TOOLBAR
+--------------------------------------- */
+
+
+#faceCanvas {
+  position: fixed;
+  z-index: 1001;
+  background: tr ansparent;
+  touch-action: none;
+  cursor: crosshair;
+    cursor: url('assets/icons/brush.cur') 16 16, auto;
+  transform: none !important;   
+}
+
+
+
+
+/* only hide carousel arrows (and nothing else) once we’re in stage-3 */
+body.stage-3 .carousel-nav {
+  display: none !important;
+}
+
+.color-picker {
+  display: grid !important;
+  grid-template-columns: repeat(2, auto);
+  grid-auto-rows: auto;
+  gap: 8px;
+  justify-content: center;
+}
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+.color-swatch.selected {
+  border: 2px solid #000;
+}
+
+body.stage-3 .draw-toolbar #undoBtn,
+body.stage-3 .draw-toolbar #redoBtn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background: #58aaf7;      /* same blue as other buttons */
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+body.stage-3 .draw-toolbar #clearBtn {
+  background: #fff;
+  color: #58aaf7;
+  border: 2px solid #58aaf7;
+  border-radius: 999px;      /* fully pill-shaped */
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+
+
+
+/*  ❌ turn off all nav buttons & extra slides */
+body.stage-4 .carousel-nav,
+body.stage-4 .list .prev,
+body.stage-4 .list .next,
+body.stage-4 .list .hide,
+body.stage-4 .list .new-next {
+  display: none !important;
+}
+
+/*  ✅ keep only the active <li> visible */
+body.stage-4 .list .act {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+body.stage-4 #faceCanvas {
+  display: block !important;
+  transform: none !important;
+}
+
+
+body.stage-3 .carousel-nav,
+body.stage-4 .carousel-nav,
+body.stage-3 .list li:not(.act),
+body.stage-4 .list li:not(.act) {
+  display: none !important;
+}
+
+/* 
+.head,
+.torso,
+.legs,
+.shoes,
+#faceCanvas {
+  transition:
+    transform 0.7s ease,
+    top       0.7s ease,
+    left      0.7s ease,
+    width     0.7s ease,
+    height    0.7s ease,
+    opacity   0.7s ease;  
+} */
+
+
+/* body.stage-4 .legs,
+body.stage-4 .shoes,
+body.stage-4 .rig-background {
+  opacity: 1;
+   transition: opacity   0.9s ease;
+} */
+
+
+
+/* after stage-3 zoom, stage-4 sends everything back to “normal” */
+body.stage-4 .head,
+body.stage-4 .torso {
+  position: absolute !important;
+  /* top: 100px   !important;
+  left: 50%    !important; */
+  transform: translateX(-50%) scale(1) !important;
+  
+}
+/* if your torso/legs have different top offsets in the default stage, replace `top:100px` with those values */
+
+
+/* make sure the canvas has no leftover scale */
+body.stage-4 #faceCanvas {
+  transform: none !important;
+}
+
+/* body.stage-4 main.builder-section {
+  
+  transform: translateX(-120px);
+  transition: transform 0.7s ease;
+} */
+
+
+/* ---------------------------------------
+   6.3) INPUT PANEL
+--------------------------------------- */
+
+
+
+/* base styling, hidden by default */
+.right-panel {
+  position: fixed;
+  top: 50%;
+   right: 300px;
+  transform: translateY(-50%) translateX(100px);
+  opacity: 0;
+  pointer-events: none;
+  width: 280px;
+  background: rgba(255,255,255,0.95);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  z-index: 1005; /* above everything else */
+}
+
+/* only show & slide in on stage-4 */
+body.stage-4 .right-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* form groups */
+.right-panel .form-group {
+  margin-bottom: 16px;
+}
+.right-panel .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2a9df4;
+}
+.right-panel .input-field {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #58aaf7;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.right-panel .input-field:focus {
+  border-color: #e85e24;
+}
+
+/* traits section */
+.right-panel .traits-section p {
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: #2a9df4;
+}
+.right-panel .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.right-panel .tag {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: white;
+}
+.right-panel .tag.pink { background: #e91e63; }
+.right-panel .tag.blue { background: #1e3a8a; }
+.right-panel .add-tag {
+  margin-top: 4px;
+}
 
 
 /* ---------------------------------------
@@ -368,8 +802,26 @@ width: 250px;
 .footer-section {
   flex: 1 1 16.666%; /* 1/6 */
   display: flex;
-  justify-content: center;
   align-items: center;
+  transition: all .3s ease;
+}
+
+
+/* stage 1: only next button, center it */
+.footer-section.stage-1 {
+  justify-content: center;
+}
+.footer-section.stage-1 .back-btn {
+  display: none;
+}
+
+/* stage 2: two buttons side-by-side, centered */
+.footer-section.stage-2 {
+  justify-content: center;
+  gap: 20px;               /* space between buttons */
+}
+.footer-section.stage-2 .back-btn {
+  display: inline-block;   /* make sure it’s visible */
 }
 
 
@@ -477,12 +929,15 @@ width: 250px;
   right: 0;
 }
 
+
+
+
 /* ---------------------------------------
    8) CHARACTERS (IMAGES)
 --------------------------------------- */
 .character {
   position: absolute;
-  width: 120px;
+  width: 100px;
   z-index: 3;
   pointer-events: none;
 }
@@ -493,15 +948,16 @@ width: 250px;
 }
 
 .character-2 {
-  bottom: -10px;
+  bottom: -60px;
   right: 0;
-  transform: rotate(-20deg);
+  transform: rotate(10deg);
 }
 
 .character-3 {
-  top: -40px;
+  width: 80px;
+  top: -60px;
   right: -40px;
-  transform: rotate(25deg);
+  transform: rotate(-15deg);
 }
 
 .card-wrapper:hover .character {
@@ -521,6 +977,20 @@ width: 250px;
   75% { transform: rotate(0.05turn); }
   100% { transform: rotate(0turn); }
 }
+
+.footer-section .back-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-section .back-btn.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
 
 /* ---------------------------------------
    10) RESPONSIVE
@@ -771,4 +1241,70 @@ width: 250px;
   
 
  
+}
+
+
+.character-grid {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 160px);
+  overflow: hidden;
+}
+
+.character-svg {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
+  z-index: 1;
+}
+
+.character-svg:hover {
+  transform: scale(1.05);
+  z-index: 3;
+}
+
+.tooltip {
+  position: fixed;
+  background: #2a9df4;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  max-width: 180px;
+  font-size: 0.85rem;
+  z-index: 9999;         /* ✨ ensures it's on top of everything */
+  display: none;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.tooltip .tag {
+  display: inline-block;
+  background-color: #eabec5;
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: white;
+}
+.character-svg {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  z-index: 1;
+}
+
+
+/* 1) Make arrows visible by default as a flexed button */
+.carousel-nav {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2) Hide them again in stage-3 & stage-4 */
+body.stage-3 .carousel-nav,
+body.stage-4 .carousel-nav {
+  display: none !important;
 }

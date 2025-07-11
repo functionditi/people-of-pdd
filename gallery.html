@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 minimum-scale=1.0,
+                 user-scalable=no">
+  <title>Create Your Character</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+/* 
+        body {
+        display: flex;
+        flex-direction: column;
+        } */
+
+        /* Layout */
+.builder-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  width: 100%;
+  height: calc(100vh - 160px); /* subtract header/footer height */
+}
+
+.left-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg-and-carousel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.right-panel {
+  flex: 0 0 280px;           /* fixed width instead of flexing equally */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform: translateX(-400px); /* previously -120px */
+}
+
+
+
+/* Hide non-active */
+.list li:not(.act) {
+  display: none;
+}
+
+/* Form */
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #2a9df4;
+  font-family: 'PP Mori', sans-serif;
+  font-size: 1rem;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+textarea.input-field {
+  min-height: 100px;
+}
+
+.traits-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.tag {
+  background-color: #eabec5;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.mockup-character {
+  width: 200px;           /* scale down from current size */
+  height: auto;
+  display: block;
+  margin: 0 auto;         /* center horizontally */
+}
+
+  </style>
+
+ 
+</head>
+
+<body class="char-page">
+  <!-- HEADER: 1/6 -->
+  <header class="header">
+    <div class="header-top">
+      <div class="back-buttons">
+        <button class="circle-button small blue-bg" onclick="goBack()">←</button>
+        <button class="text-back" onclick="goBack()">BACK TO MAIN PAGE</button>
+      </div>
+    </div>
+
+    <div class="title-section">
+      <h1>GALLERY</h1>
+      <div class="steps">
+        <!-- <div class="step"></div>
+        <div class="step "></div>
+        <div class="step"></div>
+        <div class="step active"></div> -->
+      </div>
+      <p class="subtitle">Step into the characters of the PDD Community!
+        <br> Hover over characters to find out more.
+      </p>
+    </div>
+  </header>
+
+  <!-- BUILDER: 4/6 -->
+<main class="builder-section character-grid">
+  <!-- Characters injected dynamically -->
+</main>
+
+   <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+
+  <!-- FOOTER: 1/6 -->
+  <footer class="footer-section">
+   <button id="shuffle-btn" class="text-back" style="margin-left: 10px;">SHUFFLE</button>
+
+    <!-- <button class="text-back" style="margin-left: 10px; background-color:#e85e24 ;">SUBMIT</button> -->
+    
+  </footer>
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    function goBack() {
+      window.location.href = "./index.html"; 
+    }
+
+    const characters = [
+      {
+        src: './assets/gallery/characters-01.png',
+        name: 'ALISHA',
+        quote: 'I like shopping at the Punggol Coast Mall!',
+        tags: ['Shopaholic', 'Whimsical']
+      },
+      {
+        src: './assets/gallery/characters-02.png',
+        name: 'RAYAN',
+        quote: 'Cycling with my cousins by the promenade.',
+        tags: ['Energetic']
+      },
+      {
+        src: './assets/gallery/characters-03.png',
+        name: 'ELISE',
+        quote: 'The playground outside the hawker centre is my fav!',
+        tags: ['Playful', 'Curious']
+      },
+      {
+        src: './assets/gallery/characters-04.png',
+        name: 'GEORGE PARKER',
+        quote: 'Cycling on the periphery of Coney Island and enjoying all the nature :)',
+        tags: ['Nature Lover' , 'Creative']
+      },
+      {
+        src: './assets/gallery/characters-05.png',
+        name: 'JIA HUI',
+        quote: 'Visiting the kampung in Buangkok!',
+        tags: ['Energetic', 'Curious']
+      }
+    ];
+
+    const characterImages = [];
+    const tooltips = [];
+    const builderSection = document.querySelector('.builder-section');
+    const placedPositions = [];
+
+    function getNonOverlappingPosition(maxX, maxY, width = 120, height = 360, padding = 20) {
+      let attempts = 0;
+      while (attempts < 100) {
+        const x = Math.random() * (maxX - width);
+        const y = Math.random() * (maxY - height);
+
+        const overlaps = placedPositions.some(pos => {
+          return (
+            x < pos.x + width + padding &&
+            x + width + padding > pos.x &&
+            y < pos.y + height + padding &&
+            y + height + padding > pos.y
+          );
+        });
+
+        if (!overlaps) {
+          placedPositions.push({ x, y });
+          return { x, y };
+        }
+
+        attempts++;
+      }
+
+      return { x: Math.random() * maxX, y: Math.random() * maxY };
+    }
+
+    const maxX = builderSection.clientWidth;
+    const maxY = builderSection.clientHeight;
+
+    characters.forEach(char => {
+      const img = document.createElement('img');
+      img.src = char.src;
+      img.className = 'character-svg';
+      img.style.position = 'absolute';
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      tooltip.innerHTML = `
+        <strong>Name</strong><br>
+        ${char.name}<br>
+        <em>"${char.quote}"</em><br>
+        ${char.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+      `;
+
+      builderSection.appendChild(img);
+      document.body.appendChild(tooltip);
+
+      characterImages.push({ img, tooltip, char });
+      tooltips.push(tooltip);
+
+      const { x, y } = getNonOverlappingPosition(maxX, maxY);
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+
+      img.addEventListener('mouseenter', () => {
+        const rect = img.getBoundingClientRect();
+        tooltip.style.left = `${rect.left + rect.width / 2 - 90}px`;
+        tooltip.style.top = `${rect.top - 100}px`;
+        tooltip.style.display = 'block';
+      });
+
+      img.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+    });
+
+    document.getElementById('shuffle-btn').addEventListener('click', () => {
+      placedPositions.length = 0;
+      const maxX = builderSection.clientWidth;
+      const maxY = builderSection.clientHeight;
+
+      characterImages.forEach(({ img, tooltip }) => {
+        const { x, y } = getNonOverlappingPosition(maxX, maxY);
+        img.style.left = `${x}px`;
+        img.style.top = `${y}px`;
+
+        if (tooltip.style.display === 'block') {
+          const rect = img.getBoundingClientRect();
+          tooltip.style.left = `${rect.left + rect.width / 2 - 90}px`;
+          tooltip.style.top = `${rect.top - 100}px`;
+        }
+      });
+    });
+  });
+
+  function goBack() {
+    window.location.href = "./index.html"; 
+  }
+</script>
+
+
+</html>
