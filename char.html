@@ -19,7 +19,10 @@
         } */
   </style>
 
- 
+
+
+
+
 </head>
 
 <body class="char-page">
@@ -35,19 +38,19 @@
     </div>
 
     <div class="title-section">
-      <h1>LET'S CREATE A PDD CHARACTER!</h1>
+      <h1>CHOOSE YOUR CHARACTER'S BASIC OUTFIT.</h1>
       <div class="steps">
         <div class="step active"></div>
         <div class="step"></div>
         <div class="step"></div>
-        <!-- <div class="step"></div> -->
+        <div class="step"></div>
       </div>
-      <p class="subtitle">First, let's choose the outlines of our character.</p>
+      <p class="subtitle">Use the left and right arrows for each section to choose.</p>
     </div>
   </header>
 
   <!-- BUILDER: 4/6 -->
-  <main class="builder-section">
+  <main id="avatarExport" class="builder-section">
     <div class="rig-background"></div>
     <svg id="rig" width="800" height="800" viewBox="0 0 800 800"></svg>
     
@@ -97,7 +100,8 @@
 
     <canvas id="faceCanvas"></canvas>
 
-    <div class="right-panel">
+<!-- LEFT PANEL (details about the character) -->
+<!-- <div class="left-panel">
   <div class="form-group">
     <label for="charName">Name your character!</label>
     <input id="charName" type="text" class="input-field" />
@@ -116,34 +120,67 @@
       <button class="circle-button extrasmall blue-bg add-tag">+</button>
     </div>
   </div>
+</div> -->
+
+<!-- RIGHT PANEL (consent & email) -->
+<!-- <div class="right-panel">
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil labore, laudantium minus.</p>
+  <div class="form-group">
+    <label for="emailConsent">Can we send you a copy of your avatar?</label>
+    <input type="checkbox" id="emailConsent" />
+  </div>
+
+  <div class="form-group">
+    <label for="emailAddress">Email address</label>
+    <input id="emailAddress" type="email" class="input-field" placeholder="your@email.com" />
+  </div>
+</div> -->
+
+<!-- STAGE-4 floating cards -->
+<div class="card-input name-card">
+  <p>HELLO, MY NAME IS</p>
+  <input type="text" id="charName" />
+</div>
+
+<div class="card-input fav-card">
+  <p>MY FAVOURITE THING TO DO IN PUNGGOL IS</p>
+  <textarea id="favThing"></textarea>
+  <div class="icon">🛵</div>
+</div>
+
+<div class="card-input trait-card blue">
+  <span>URBAN<br/>ENTHUSIAST</span>
+</div>
+
+<div class="card-input trait-card pink">
+  <span>CYCLE LOVER</span>
 </div>
 
 
-   <div class="draw-toolbar">
-  <!-- RED CARD for the color picker -->
-  <div class="card-wrapper" onclick="/* nothing or leave blank */">
-    <svg viewBox="0 0 340 340" class="card-bg">
-      <path d="M62.3638,337.9417h213.2141c34.4426,0,62.3638-27.9212,62.3638-62.3638v-88.4862c0-34.4426-27.9212-62.3638-62.3638-62.3638h-20.283c-23.2407,0-42.0809-18.8403-42.0809-42.0809v-20.283C213.2139,27.9212,185.2927,0,150.8501,0H62.3638C27.9212,0,0,27.9212,0,62.3638v213.214c0,34.4426,27.9212,62.3638,62.3638,62.3638Z" fill="#e85e24"/>
-    </svg>
-    <div class="card-content">
-      <div class="color-picker">
-        <div class="color-swatch" data-color="#6b8e23" style="background:#6b8e23"></div>
-        <div class="color-swatch" data-color="#e91e63" style="background:#e91e63"></div>
-        <div class="color-swatch" data-color="#4a2c2a" style="background:#4a2c2a"></div>
-        <div class="color-swatch" data-color="#d2a679" style="background:#d2a679"></div>
-        <div class="color-swatch" data-color="#1e3a8a" style="background:#1e3a8a"></div>
-      </div>
-    </div>
-    <div class="corner-circle circle-button medium orange-bg">
-      <div class="icon">🎨</div>
-    </div>
-  </div>
-  <div class="button-row">
-       <button id="undoBtn" aria-label="Undo last stroke">↶</button>
-        <button id="redoBtn" aria-label="Redo stroke">↷</button>
 
-        <button id="clearBtn">Clear</button>
+<div class="card-input email-card">
+  <p>MY EMAIL IS</p>
+  <input type="text" id="emailAddress" placeholder="your@email.com" />
+</div>
+
+
+
+
+   <div class="draw-toolbar">
+    <div class="color-picker">
+        <div class="color-swatch" data-color="#234ea8" style="background:#234ea8"></div>
+        <div class="color-swatch" data-color="#605259" style="background:#605259"></div>
+        <div class="color-swatch" data-color="#c45a48" style="background:#c45a48"></div>
+        <div class="color-swatch" data-color="#859c8e" style="background:#859c8e"></div>
+        <div class="color-swatch" data-color="#40904d" style="background:#40904d"></div>
       </div>
+      <div class="button-row">
+        <button class="arc-button" id="undoBtn">↶</button>
+        <button class="arc-button" id="clearBtn">CLEAR</button>
+        <button class="arc-button" id="redoBtn">↷</button>
+      </div>
+       
+ 
 </div>
 
 
@@ -155,6 +192,8 @@
     <button class="text-back back-btn">BACK</button>
     <button class="text-back next-btn" style="margin-left: 20px;">NEXT</button>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </body>
 
@@ -377,8 +416,11 @@ function animate() {
     circle.setAttribute('cy', nodes[name].y);
   });
 
+  if (!root.classList.contains('stage-4')) {
+    positionCarousels();
+  }
+
   requestAnimationFrame(animate);
-  positionCarousels()
 
 }
 animate();
@@ -477,6 +519,8 @@ class Carousel {
     // Defer repositioning so DOM updates complete
     requestAnimationFrame(() => this.positionNavButtons());
   }
+
+
 
   next() {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
@@ -582,6 +626,7 @@ const imageSets = [ hats, torsos, legs, shoes];
 
 function positionCarousels() {
 
+  // if (stage === 4) return;
   
   // head node
   const headPos = svgPointToClient(nodes.head.x, nodes.head.y)
@@ -653,6 +698,7 @@ let stage = 1;
 const footer  = document.querySelector('.footer-section');
 const backBtn = document.querySelector('.back-btn');
 const nextBtn = document.querySelector('.next-btn');
+const titleEl = document.querySelector('.title-section h1');
 const subtitleEl      = document.querySelector('.subtitle');
 const originalSubtitle = subtitleEl.textContent.trim();
 const stepEls = Array.from(document.querySelectorAll('.steps .step'));
@@ -703,6 +749,74 @@ function setStep(activeIndex) {
   });
 }
 
+function updateTitleSection(stage) {
+  const titleSection = document.querySelector('.title-section');
+  const h1 = titleSection.querySelector('h1');
+  const subtitle = titleSection.querySelector('.subtitle');
+  const steps = Array.from(titleSection.querySelectorAll('.step'));
+
+  // update step active state
+  steps.forEach((el, i) => {
+    el.classList.toggle('active', i === stage - 1);
+  });
+
+  // update text content
+  if (stage === 1) {
+    h1.textContent = "CHOOSE YOUR CHARACTER'S BASIC OUTFIT.";
+    subtitle.textContent = "Use the left and right arrows for each section to choose.";
+  } else if (stage === 2) {
+    h1.textContent = "LET'S ADD SOME FUN PRINTS!";
+    subtitle.textContent = "Use the left and right arrows for each section to choose.";
+  } else if (stage === 3) {
+    h1.textContent = "GIVE YOUR CHARACTER A FACE!";
+    subtitle.textContent = "Click and drag over the face. You can add eyes, a nose, a mouth or whatever else you please.";
+  } else if (stage === 4) {
+    h1.textContent = "LET'S ADD A FEW MORE DETAILS!";
+    subtitle.textContent = "Tell us your character's name, and what their favourite thing to do in Punggol is.";
+  }
+}
+
+// Arc layout for color swatches
+function layoutSwatchesInArc() {
+  const swatches = document.querySelectorAll('.color-picker .color-swatch');
+  const radius = 200;
+  const arcStart = 90+45+10;     // ← flipped: start from bottom
+  const arcEnd = 270-45-10;      // ← to top
+  const step = (arcEnd - arcStart) / (swatches.length - 1);
+
+  swatches.forEach((swatch, i) => {
+    const angle = (arcStart + step * i) * (Math.PI / 180); // degrees → radians
+    const x = radius * Math.cos(angle) + 275; // centerX = 60 (shift arc center right)
+    const y = radius * Math.sin(angle) + 60; // centerY = 60
+    swatch.style.left = `${x}px`;
+    swatch.style.top = `${y}px`;
+  });
+}
+
+function layoutButtonsInArc() {
+  const buttons = document.querySelectorAll('.button-row .arc-button');
+  const radius = 200;
+  const arcStart = 90 -45-25;  // ← flipped: start from bottom
+  const arcEnd =  -90 +45 +25; 
+  const step = (arcEnd - arcStart) / (buttons.length - 1);
+
+  buttons.forEach((btn, i) => {
+    const angle = (arcStart + step * i) * (Math.PI / 180);
+    const x = radius * Math.cos(angle) + 275; // centerX = 100
+    const y = radius * Math.sin(angle) + 60; // centerY = 100
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  layoutSwatchesInArc();
+  layoutButtonsInArc();
+});
+
+
+
+
 
 
 
@@ -739,83 +853,6 @@ function animateCarouselSwap(carousel, newImages, onSwapComplete) {
 
 
 
-// click‐handler for NEXT in stage 1
-nextBtn.addEventListener('click', () => {
-  if (stage === 1) {
-    // → stage-1 → stage-2  
-    applyPatterned(carousels);
-    subtitleEl.textContent = "Next, pick patterns and prints!";
-    setStep(1);
-    stage = 2;
-    backBtn.classList.add('active');
-    footer.classList.replace('stage-1','stage-2');
-  }
-  else if (stage === 2) {
-    // → stage-2 → stage-3  
-    root.classList.add('stage-3');           // trigger zoom & hide other parts
-    subtitleEl.textContent = "Now you should draw a face!";
-    setStep(2);
-    // show drawing tools
-    toolbarEl.style.display = 'flex';
-    canvasEl.style.display  = 'block';
-    // size overlay AFTER zoom CSS finishes
-    setTimeout(resizeCanvasToFace, 300);
-    stage = 3;
-  }
-  else if (stage === 3) {
-    // → stage-3 → stage-4
-    root.classList.remove('stage-3');
-    root.classList.add('stage-4');
-    subtitleEl.textContent = "Here’s your final avatar!";
-    toolbarEl.style.display = 'none';      // hide the draw palette
-    canvasEl.style.display  = 'block';     // keep the strokes canvas
-    // give the DOM a tick to finish the CSS transition, then recalc:
-      setTimeout(() => {
-      resizeCanvasToFace();
-      drawAllStrokes();
-    }, 0);
-
-    stage = 4;
-  }
-});
-
-
-// click‐handler for BACK in stage 2
-backBtn.addEventListener('click', () => {
-  if (stage === 3) {
-    // → stage-3 → stage-2
-    root.classList.remove('stage-3');
-    subtitleEl.textContent = "Next, pick patterns and prints!";
-    setStep(1);
-    toolbarEl.style.display = 'none';
-    canvasEl.style.display  = 'none';
-    stage = 2;
-    // footer is already in stage-2, backBtn stays visible
-  }
-  else if (stage === 2) {
-    // → stage-2 → stage-1
-    restoreOriginals(carousels);
-    subtitleEl.textContent = originalSubtitle;
-    setStep(0);
-    backBtn.classList.remove('active');
-    footer.classList.replace('stage-2','stage-1');
-    stage = 1;
-  }
-
-  else if (stage === 4) {
-  // → stage-4 → stage-3
-  root.classList.remove('stage-4');
-  root.classList.add('stage-3');
-  subtitleEl.textContent = "Now you should draw a face!";
-  setStep(2);
-  toolbarEl.style.display = 'flex';
-  canvasEl.style.display  = 'block';
-  // wait for zoom CSS to settle before resizing
-  setTimeout(resizeCanvasToFace, 0);
-  stage = 3;
-}
-});
-
 
 
 // 1. grab canvas & ctx
@@ -827,6 +864,7 @@ function resizeCanvasToFace() {
   const container = document.querySelector('.head .list li.act .svg-container');
   if (!container) return;
 
+  // measure
   const box  = container.getBoundingClientRect();
   const newW = box.width, newH = box.height;
   const oldW = canvasEl.width, oldH = canvasEl.height;
@@ -836,28 +874,29 @@ function resizeCanvasToFace() {
     const yScale = newH / oldH;
     const avgScale = (xScale + yScale) / 2;
 
-    // 1. scale all stroke points & widths
     strokes.forEach(stroke => {
       stroke.points.forEach(pt => {
         pt.x *= xScale;
         pt.y *= yScale;
       });
-      stroke.width = stroke.width * avgScale;
+      stroke.width *= avgScale;
     });
   }
 
-  // 2. resize & position the canvas
+  // manual vertical tweak (negative = move up, positive = move down)
+  const manualYAdjust = -25;  // ← tweak this value!
+
+  // resize & reposition
   canvasEl.width  = newW;
   canvasEl.height = newH;
   Object.assign(canvasEl.style, {
     position: 'fixed',
     left:   `${box.left}px`,
-    top:    `${box.top}px`,
+    top:    `${box.top + manualYAdjust}px`,  // <-- apply your adjustment here
     width:  `${newW}px`,
     height: `${newH}px`
   });
 
-  // 3. redraw
   drawAllStrokes();
 }
 
@@ -1001,9 +1040,307 @@ swatches.forEach(s => {
   })
 })
 
+// call this instead of relying on .head/.torso divs
+function drawFinalRig() {
+  // 1) hide carousel UI
+  ['head','torso','legs','shoes'].forEach(cat => {
+    const el = document.querySelector(`.${cat}`);
+    if (el) el.style.display = 'none';
+  });
+  document.querySelectorAll('.carousel-nav').forEach(btn => {
+    btn.style.display = 'none';
+  });
+
+  // 2) clear any existing final images
+  document.querySelectorAll('image.final-img').forEach(img => img.remove());
+
+  // 3) get the four printed SVG URLs
+  const selections = carousels.map(c => c.images[c.currentIndex]);
+
+
+  console.log(selections)
+  // 4) compute joint centers
+  const headCtr = nodes.head;
+  const torsoCtr = {
+    x: (nodes.shoulderL.x + nodes.shoulderR.x + nodes.hipL.x + nodes.hipR.x)/4,
+    y: (nodes.shoulderL.y + nodes.shoulderR.y + nodes.hipL.y + nodes.hipR.y)/4 + 10  // +10px down
+  };
+  const legsCtr = {
+    x: (nodes.kneeL.x + nodes.kneeR.x)/2,
+    y: (nodes.kneeL.y + nodes.kneeR.y)/2 - 30  // -30px up
+  };
+  const shoesCtr = {
+    x: (nodes.footL.x + nodes.footR.x)/2,
+    y: (nodes.footL.y + nodes.footR.y)/2 - 30  // -30px up
+  };
+
+  const centers = [ shoesCtr, legsCtr, torsoCtr, headCtr ];
+  const sizes   = [ 180,     250,     240,       130    ]; // match order
+
+  // 5) append in order so shoes are at bottom, head on top
+  centers.forEach((ctr, i) => {
+    const img = document.createElementNS('http://www.w3.org/2000/svg','image');
+    img.classList.add('final-img');
+    img.setAttributeNS('http://www.w3.org/1999/xlink','href', selections[ 3 - i ]); 
+    // selections is [head, torso, legs, shoes], so selections[3] → shoes, [2]→legs, [1]→torso, [0]→head
+    img.setAttribute('width',  sizes[i]);
+    img.setAttribute('height', sizes[i]);
+    img.setAttribute('x', ctr.x - sizes[i]/2);
+    img.setAttribute('y', ctr.y - sizes[i]/2);
+    svg.appendChild(img);
+  });
+}
+
+function gatherCharacterData() {
+  const selections = carousels.map(c => c.images[c.currentIndex]);
+  const name       = document.getElementById('charName').value;
+  const favThing   = document.getElementById('favThing').value;
+
+  // capture strokes as a png data‑url
+  const faceCanvas = document.getElementById('faceCanvas');
+  const faceData   = faceCanvas.toDataURL('image/png');
+
+  return { selections, name, favThing, faceData };
+}
 
 
 
+
+async function exportAvatarAsPNG() {
+  // 1) export dimensions & viewBox
+  const CANVAS_W = 1200, CANVAS_H = 1800;
+  const vbW = svg.viewBox.baseVal.width;    // 800
+  const vbH = svg.viewBox.baseVal.height;   // 800
+
+  // 2) compute export scale & rig vertical nudge
+  const baseScale     = CANVAS_W / vbW;     // 1.5×
+  const fillMultiplier = 2;                 // overall zoom factor
+  const s             = baseScale * fillMultiplier;
+  const xOff          = (CANVAS_W - vbW * s) / 2;
+  const baseYOff      = (CANVAS_H - vbH * s) / 2;
+  const manualYOffset = 500;                 // your rig’s vertical nudge in px
+  const yOff          = baseYOff + manualYOffset;
+
+  // 3) stage‑4 stroke y‑tweak (in screen px)
+  const manualYAdjust = -25;                // “move strokes up 25px” exactly
+
+  // 4) compute part centers in viewBox coords
+  const originVB = { x: vbW/2, y: 100 };
+  const headVB = { x: originVB.x, y: originVB.y };
+  const torsoVB = {
+    x: originVB.x + (baseRig.shoulderL.x + baseRig.shoulderR.x + baseRig.hipL.x + baseRig.hipR.x) / 4,
+    y: originVB.y + (baseRig.shoulderL.y + baseRig.shoulderR.y + baseRig.hipL.y + baseRig.hipR.y) / 4 + 10
+  };
+  const legsVB = {
+    x: originVB.x + (baseRig.kneeL.x + baseRig.kneeR.x) / 2,
+    y: originVB.y + (baseRig.kneeL.y + baseRig.kneeR.y) / 2 + 20
+  };
+  const shoesVB = {
+    x: originVB.x + (baseRig.footL.x + baseRig.footR.x) / 2,
+    y: originVB.y + (baseRig.footL.y + baseRig.footR.y) / 2 + 20
+  };
+  const centersVB = [ shoesVB, legsVB, torsoVB, headVB ];
+  const liSizesVB = [ 180, 200, 240, 130 ];
+
+  // 5) load the four patterned SVGs
+  const urls = carousels.map(c => c.images[c.currentIndex]);
+  const imgs = await Promise.all(
+    urls.map(u => new Promise(res => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload  = () => res(img);
+      img.src     = u;
+    }))
+  );
+
+  // 6) prepare output canvas & draw gradient
+  const out = document.createElement('canvas');
+  out.width  = CANVAS_W;
+  out.height = CANVAS_H;
+  const ctx = out.getContext('2d');
+  const grad = ctx.createLinearGradient(0,0,0,CANVAS_H);
+  grad.addColorStop(0,'white');
+  grad.addColorStop(1,'#f4b63d');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,CANVAS_W,CANVAS_H);
+
+  // 7) draw outfits (shoes→legs→torso→head)
+  for (let i = 0; i < 4; i++) {
+    const img    = imgs[3 - i];
+    const vbSize = liSizesVB[i];
+    const pxW    = vbSize * s;
+    const pxH    = img.naturalHeight / img.naturalWidth * pxW;
+    const ctrVB  = centersVB[i];
+    const x      = ctrVB.x * s - pxW/2 + xOff;
+    const y      = ctrVB.y * s - pxH/2 + yOff;
+    ctx.drawImage(img, x, y, pxW, pxH);
+  }
+
+  // 8) stamp the faceCanvas (with strokes) at head
+  const faceCanvas = document.getElementById('faceCanvas');
+  if (!faceCanvas.width || !faceCanvas.height) {
+    resizeCanvasToFace();
+    drawAllStrokes();
+  }
+  const fcW = faceCanvas.width, fcH = faceCanvas.height;
+  if (fcW && fcH) {
+    // headVB is centersVB[3]
+    const headCtr = centersVB[3];
+    const xF = headCtr.x * s - (fcW * s)/2 + xOff;
+    // **apply manualYAdjust in px, NOT scaled**
+    const yF = headCtr.y * s - (fcH * s)/2 + yOff + manualYAdjust;
+    ctx.drawImage(faceCanvas, 0, 0, fcW, fcH, xF, yF, fcW * s, fcH * s);
+  }
+
+  // 9) download the PNG
+  const link = document.createElement('a');
+  link.download = 'my-character.png';
+  link.href     = out.toDataURL('image/png');
+  link.click();
+}
+
+
+
+
+// click‐handler for NEXT in stage 1
+nextBtn.addEventListener('click', () => {
+  if (stage === 1) {
+    // → stage-1 → stage-2  
+    applyPatterned(carousels);
+    // subtitleEl.textContent = "Next, pick patterns and prints!";
+   
+    setStep(1);
+    stage = 2;
+     updateTitleSection(stage);
+    backBtn.classList.add('active');
+    footer.classList.replace('stage-1','stage-2');
+     document.body.classList.remove('stage-1');
+    document.body.classList.add('stage-2');
+
+    root.classList.remove('stage-1');
+    root.classList.add('stage-2');
+  }
+  else if (stage === 2) {
+    // → stage-2 → stage-3  
+    root.classList.remove('stage-2');
+    root.classList.add('stage-3');           // trigger zoom & hide other parts
+    // subtitleEl.textContent = "Now you should draw a face!";
+   
+    setStep(2);
+    // show drawing tools
+    toolbarEl.style.display = 'flex';
+    canvasEl.style.display  = 'block';
+    // size overlay AFTER zoom CSS finishes
+    setTimeout(resizeCanvasToFace, 300);
+    stage = 3;
+     updateTitleSection(stage);
+
+    
+  }
+  else if (stage === 3) {
+    root.classList.replace('stage-3','stage-4');
+
+    // hide the palette but keep the canvas visible
+    toolbarEl.style.display = 'none';
+
+    // 1) resize & scale the face canvas to the head SVG
+    resizeCanvasToFace();
+    // 2) redraw strokes so they're scaled correctly
+    drawAllStrokes();
+
+    // 3) now draw just the four printed svgs on the rig
+    drawFinalRig();
+
+    console.log("DATA", gatherCharacterData());
+    // 4) update UI
+    stage = 4;
+    updateTitleSection(stage);
+    nextBtn.textContent = 'SUBMIT';
+    nextBtn.classList.replace('blue-bg','red-bg');
+    nextBtn.type = 'submit';
+   
+  }
+
+  else if (stage === 4) {
+      //exportAvatarAsPNG();
+      const gallery = JSON.parse(localStorage.getItem('galleryCharacters') || '[]');
+  // 2. add new entry
+  gallery.push(gatherCharacterData());
+  // 3. write back
+  localStorage.setItem('galleryCharacters', JSON.stringify(gallery));
+
+  // 4. go to gallery page
+  window.location.href = './gallery.html';
+}
+
+});
+
+
+// click‐handler for BACK in stage 2
+backBtn.addEventListener('click', () => {
+  if (stage === 3) {
+    // → stage-3 → stage-2
+    root.classList.remove('stage-3');
+    root.classList.add('stage-2');
+    // subtitleEl.textContent = "Next, pick patterns and prints!";
+    setStep(1);
+    toolbarEl.style.display = 'none';
+    canvasEl.style.display  = 'none';
+    stage = 2;
+     updateTitleSection(stage);
+    
+    // footer is already in stage-2, backBtn stays visible
+  }
+  else if (stage === 2) {
+    // → stage-2 → stage-1
+    root.classList.remove('stage-2');
+    root.classList.add('stage-1');
+    restoreOriginals(carousels);
+    subtitleEl.textContent = originalSubtitle;
+    setStep(0);
+    backBtn.classList.remove('active');
+    footer.classList.replace('stage-2','stage-1');
+    stage = 1;
+     updateTitleSection(stage);
+  }
+
+  else if (stage === 4) {
+  // → stage-4 → stage-3
+  // 1) swap CSS
+    root.classList.replace('stage-4','stage-3');
+
+    // 2) bring back the draw tools
+    toolbarEl.style.display = 'flex';
+    canvasEl.style.display  = 'block';
+
+    // 3) un-hide the four divs
+    ['head','torso','legs','shoes'].forEach(cat => {
+      const el = document.querySelector(`.${cat}`);
+      if (el) el.style.display = '';
+    });
+    // 4) show nav buttons again
+    document.querySelectorAll('.carousel-nav').forEach(btn => {
+      btn.style.display = 'inline-flex';
+    });
+
+    // 5) remove the final <image> overlays
+    document.querySelectorAll('image.final-img').forEach(img => img.remove());
+
+    // 6) re-scale & redraw strokes
+    setTimeout(() => {
+      resizeCanvasToFace();
+      drawAllStrokes();
+    }, 0);
+
+    // 7) reset UI state
+    stage = 3;
+    updateTitleSection(stage);
+    nextBtn.textContent = 'NEXT';
+    nextBtn.classList.replace('red-bg','blue-bg');
+    nextBtn.type = 'button';
+
+}
+});
 
 
 </script>

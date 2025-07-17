@@ -1,281 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
   <meta name="viewport"
-        content="width=device-width,
-                 initial-scale=1.0,
-                 maximum-scale=1.0,
-                 minimum-scale=1.0,
-                 user-scalable=no">
-  <title>Create Your Character</title>
-  <link rel="stylesheet" href="styles.css" />
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>Character Gallery</title>
   <style>
-/* 
-        body {
-        display: flex;
-        flex-direction: column;
-        } */
+    body {
+      margin: 0;
+      font-family: 'PP Mori', sans-serif;
+      background: white;
+      color: #2a9df4;
+    }
 
-        /* Layout */
-.builder-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px;
-  width: 100%;
-  height: calc(100vh - 160px); /* subtract header/footer height */
-}
+    header {
+      padding: 20px;
+      text-align: center;
+    }
 
-.left-panel {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.svg-and-carousel {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+    .title-section h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
 
 
-.right-panel {
-  flex: 0 0 280px;           /* fixed width instead of flexing equally */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  transform: translateX(-400px); /* previously -120px */
-}
+    .subtitle {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    #gallery-container {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 140px);
+      overflow: visible;
+    }
+
+    .gallery-card {
+      position: absolute;
+      transform-origin: center center;
+    }
+
+    .gallery-card {
+      transform: scale(1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery-card:hover {
+      transform: scale(1.5) !important;
+    }
 
 
 
-/* Hide non-active */
-.list li:not(.act) {
-  display: none;
-}
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
 
-/* Form */
-.input-field {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border-radius: 15px;
-  border: 2px solid #2a9df4;
-  font-family: 'PP Mori', sans-serif;
-  font-size: 1rem;
-  margin-top: 5px;
-  box-sizing: border-box;
-}
+    /* tooltip container */
+    .tooltip {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -110%);
+      padding: 12px 16px;
+      background-color: #2a9df4;
+      border-radius: 12px;
+      display: none;
+      z-index: 100;
+    }
 
-textarea.input-field {
-  min-height: 100px;
-}
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      /* pull it below the bubble */
+      left: 50%;
+      /* center horizontally */
+      transform: translateX(-50%);
+      border-width: 10px 10px 0 10px;
+      /* triangle size */
+      border-style: solid;
+      border-color: #2a9df4 transparent transparent transparent;
+    }
 
-.traits-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
+    /* name in caps, white */
+    .tooltip h3 {
+      margin: 0 0 4px;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 1rem;
+      text-align: center;
+    }
 
-.tag {
-  background-color: #eabec5;
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 0.9rem;
-  color: #fff;
-}
+    /* favourite thing in quotes, light yellow */
+    .tooltip p {
+      margin: 0;
+      color: #ffe699;
+      font-size: 0.8rem;
+      text-align: center;
+    }
 
-.mockup-character {
-  width: 200px;           /* scale down from current size */
-  height: auto;
-  display: block;
-  margin: 0 auto;         /* center horizontally */
-}
-
+    /* show on hover */
+    .gallery-card:hover .tooltip {
+      display: block;
+    }
   </style>
-
- 
 </head>
 
-<body class="char-page">
-  <!-- HEADER: 1/6 -->
-  <header class="header">
+<body>
+  <header>
     <div class="header-top">
-      <div class="back-buttons">
-        <button class="circle-button small blue-bg" onclick="goBack()">←</button>
-        <button class="text-back" onclick="goBack()">BACK TO MAIN PAGE</button>
-      </div>
+      <button onclick="goBack()">←</button>
+      <button onclick="goBack()">BACK TO MAIN PAGE</button>
     </div>
-
     <div class="title-section">
       <h1>GALLERY</h1>
-      <div class="steps">
-        <!-- <div class="step"></div>
-        <div class="step "></div>
-        <div class="step"></div>
-        <div class="step active"></div> -->
-      </div>
-      <p class="subtitle">Step into the characters of the PDD Community!
-        <br> Hover over characters to find out more.
-      </p>
+      <p class="subtitle">Step into the characters of the PDD Community!</p>
     </div>
   </header>
 
-  <!-- BUILDER: 4/6 -->
-<main class="builder-section character-grid">
-  <!-- Characters injected dynamically -->
-</main>
+  <main id="gallery-container"></main>
+  <footer><button id="shuffle-btn">SHUFFLE</button></footer>
+  <script>
+    const CARD_W = 200 / 1.5;
+    const CARD_H = 360 / 1.5;
+    const container = document.getElementById('gallery-container');
+    const headerEl = document.querySelector('header');
+    const footerEl = document.querySelector('footer');
 
-   <script src="https://hammerjs.github.io/dist/hammer.js"></script>
-
-  <!-- FOOTER: 1/6 -->
-  <footer class="footer-section">
-   <button id="shuffle-btn" class="text-back" style="margin-left: 10px;">SHUFFLE</button>
-
-    <!-- <button class="text-back" style="margin-left: 10px; background-color:#e85e24 ;">SUBMIT</button> -->
-    
-  </footer>
-</body>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    function goBack() {
-      window.location.href = "./index.html"; 
+    function resizeContainer() {
+      container.style.height = (window.innerHeight - headerEl.offsetHeight - footerEl.offsetHeight) + 'px';
     }
+    window.addEventListener('resize', resizeContainer);
+    function goBack() { window.location.href = 'index.html'; }
 
-    const characters = [
-      {
-        src: './assets/gallery/characters-01.png',
-        name: 'ALISHA',
-        quote: 'I like shopping at the Punggol Coast Mall!',
-        tags: ['Shopaholic', 'Whimsical']
-      },
-      {
-        src: './assets/gallery/characters-02.png',
-        name: 'RAYAN',
-        quote: 'Cycling with my cousins by the promenade.',
-        tags: ['Energetic']
-      },
-      {
-        src: './assets/gallery/characters-03.png',
-        name: 'ELISE',
-        quote: 'The playground outside the hawker centre is my fav!',
-        tags: ['Playful', 'Curious']
-      },
-      {
-        src: './assets/gallery/characters-04.png',
-        name: 'GEORGE PARKER',
-        quote: 'Cycling on the periphery of Coney Island and enjoying all the nature :)',
-        tags: ['Nature Lover' , 'Creative']
-      },
-      {
-        src: './assets/gallery/characters-05.png',
-        name: 'JIA HUI',
-        quote: 'Visiting the kampung in Buangkok!',
-        tags: ['Energetic', 'Curious']
-      }
-    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      resizeContainer();
+      const raw = localStorage.getItem('galleryCharacters');
+      const gallery = JSON.parse(raw || '[]');
 
-    const characterImages = [];
-    const tooltips = [];
-    const builderSection = document.querySelector('.builder-section');
-    const placedPositions = [];
+      gallery.forEach((data, i) => renderAvatar(data, i, 1));
+      nonOverlapShuffle();
 
-    function getNonOverlappingPosition(maxX, maxY, width = 120, height = 360, padding = 20) {
-      let attempts = 0;
-      while (attempts < 100) {
-        const x = Math.random() * (maxX - width);
-        const y = Math.random() * (maxY - height);
+      document
+        .getElementById('shuffle-btn')
+        .addEventListener('click', nonOverlapShuffle);
+    });
 
-        const overlaps = placedPositions.some(pos => {
-          return (
-            x < pos.x + width + padding &&
-            x + width + padding > pos.x &&
-            y < pos.y + height + padding &&
-            y + height + padding > pos.y
-          );
-        });
-
-        if (!overlaps) {
-          placedPositions.push({ x, y });
-          return { x, y };
+    function drawStrokesOnCanvas(strokes, canvas) {
+      const ctx = canvas.getContext('2d');
+      strokes.forEach(stroke => {
+        const pts = stroke.points;
+        if (!pts || pts.length < 2) return;
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = stroke.color;
+        ctx.lineWidth = stroke.width;
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length - 1; i++) {
+          const xc = (pts[i].x + pts[i + 1].x) / 2;
+          const yc = (pts[i].y + pts[i + 1].y) / 2;
+          ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
         }
-
-        attempts++;
-      }
-
-      return { x: Math.random() * maxX, y: Math.random() * maxY };
+        ctx.stroke();
+      });
     }
 
-    const maxX = builderSection.clientWidth;
-    const maxY = builderSection.clientHeight;
 
-    characters.forEach(char => {
-      const img = document.createElement('img');
-      img.src = char.src;
-      img.className = 'character-svg';
-      img.style.position = 'absolute';
+    function renderAvatar({ selections, faceData, name, favThing }, index, scale = 1) {
+      // create card wrapper
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('gallery-card');
+      wrapper.style.width = CARD_W + 'px';
+      wrapper.style.height = CARD_H + 'px';
+      wrapper.style.transform = `scale(${scale})`;
 
+      // base SVG
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${CARD_W} ${CARD_H}`);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+      svg.setAttribute('width', CARD_W);
+      svg.setAttribute('height', CARD_H);
+      svg.style.position = 'absolute';
+      svg.style.left = '0';
+      svg.style.top = '0';
+      svg.style.zIndex = '1';
+
+      // group to center avatars
+      const group = document.createElementNS(svgNS, 'g');
+      group.setAttribute('transform', `translate(${CARD_W / 2}, 10)`);
+
+      // define body‑part centers
+      const baseRig = {
+        head: { x: 0, y: 20 },
+        neck: { x: 0, y: 20 },
+        shoulderL: { x: -40, y: 20 },
+        shoulderR: { x: 40, y: 20 },
+        hipL: { x: 0, y: 75 },
+        hipR: { x: 0, y: 75 },
+        kneeL: { x: 0, y: 140 },
+        kneeR: { x: 0, y: 140 },
+        footL: { x: 0, y: 180 },
+        footR: { x: 0, y: 180 }
+      };
+      const centers = [
+        { ctr: baseRig.footL, size: 80 },
+        { ctr: baseRig.kneeL, size: 100 },
+        { ctr: baseRig.hipL, size: 90 },
+        { ctr: baseRig.head, size: 60 }
+      ];
+
+      // draw the four images into the SVG
+      centers.forEach((cfg, i) => {
+        const img = document.createElementNS(svgNS, 'image');
+        img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', selections[3 - i]);
+        img.setAttribute('width', cfg.size);
+        img.setAttribute('height', cfg.size);
+        img.setAttribute('x', cfg.ctr.x - cfg.size / 2);
+        img.setAttribute('y', cfg.ctr.y - cfg.size / 2);
+        group.appendChild(img);
+      });
+
+      svg.appendChild(group);
+      wrapper.appendChild(svg);
+
+      // overlay the face-strokes PNG exactly over the head
+      if (faceData) {
+        const headCfg = centers[3];
+        const overlay = document.createElement('img');
+        overlay.src = faceData;
+        overlay.width = headCfg.size;
+        overlay.height = headCfg.size;
+        overlay.style.position = 'absolute';
+        const offsetX = CARD_W / 2 + headCfg.ctr.x - headCfg.size / 2;
+        const offsetY = 10 + headCfg.ctr.y - headCfg.size / 2;
+        overlay.style.left = `${offsetX}px`;
+        overlay.style.top = `${offsetY}px`;
+        overlay.style.zIndex = '2';
+        wrapper.appendChild(overlay);
+      }
+
+      // tooltip with name and favourite thing
       const tooltip = document.createElement('div');
-      tooltip.className = 'tooltip';
+      tooltip.classList.add('tooltip');
       tooltip.innerHTML = `
-        <strong>Name</strong><br>
-        ${char.name}<br>
-        <em>"${char.quote}"</em><br>
-        ${char.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}
-      `;
+    <h3>${name.toUpperCase()}</h3>
+    <p>"${favThing}"</p>
+  `;
+      wrapper.appendChild(tooltip);
 
-      builderSection.appendChild(img);
-      document.body.appendChild(tooltip);
+      // add card and randomize its position
+      container.appendChild(wrapper);
+      //positionCard(wrapper);
+    }
 
-      characterImages.push({ img, tooltip, char });
-      tooltips.push(tooltip);
 
-      const { x, y } = getNonOverlappingPosition(maxX, maxY);
-      img.style.left = `${x}px`;
-      img.style.top = `${y}px`;
+    function nonOverlapShuffle() {
+      const cards = Array.from(document.querySelectorAll('.gallery-card'));
+      const placed = [];
 
-      img.addEventListener('mouseenter', () => {
-        const rect = img.getBoundingClientRect();
-        tooltip.style.left = `${rect.left + rect.width / 2 - 90}px`;
-        tooltip.style.top = `${rect.top - 100}px`;
-        tooltip.style.display = 'block';
+      cards.forEach(card => {
+        const w = card.offsetWidth, h = card.offsetHeight;
+        let x, y, rect, colliding, tries = 0;
+
+        do {
+          x = Math.random() * (container.clientWidth - w);
+          y = Math.random() * (container.clientHeight - h);
+          rect = { x, y, w, h };
+          colliding = placed.some(o =>
+            !(rect.x + rect.w < o.x ||
+              rect.x > o.x + o.w ||
+              rect.y + rect.h < o.y ||
+              rect.y > o.y + o.h)
+          );
+          tries++;
+        } while (colliding && tries < 200);
+
+        card.style.left = x + 'px';
+        card.style.top = y + 'px';
+        placed.push(rect);
       });
+    }
 
-      img.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-      });
-    });
 
-    document.getElementById('shuffle-btn').addEventListener('click', () => {
-      placedPositions.length = 0;
-      const maxX = builderSection.clientWidth;
-      const maxY = builderSection.clientHeight;
 
-      characterImages.forEach(({ img, tooltip }) => {
-        const { x, y } = getNonOverlappingPosition(maxX, maxY);
-        img.style.left = `${x}px`;
-        img.style.top = `${y}px`;
 
-        if (tooltip.style.display === 'block') {
-          const rect = img.getBoundingClientRect();
-          tooltip.style.left = `${rect.left + rect.width / 2 - 90}px`;
-          tooltip.style.top = `${rect.top - 100}px`;
-        }
-      });
-    });
-  });
+    function positionCard(card) {
+      const cw = container.clientWidth - card.offsetWidth;
+      const ch = container.clientHeight - card.offsetHeight;
+      card.style.left = Math.random() * cw + 'px';
+      card.style.top = Math.random() * ch + 'px';
+    }
 
-  function goBack() {
-    window.location.href = "./index.html"; 
-  }
-</script>
-
+    function shufflePositions() {
+      document.querySelectorAll('.gallery-card').forEach(positionCard);
+    }
+  </script>
+</body>
 
 </html>

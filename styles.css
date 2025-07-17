@@ -214,7 +214,7 @@ body.stage-2 .carousel-nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 150px;   /* adjust width as needed */
+  width: 175px;   /* adjust width as needed */
   height: 100%;    /* tall vertical bar */
   background-color: #2a9df4; /* your blue */
   z-index: 0;     /* behind SVG & carousels */
@@ -367,15 +367,15 @@ width: 240px;
 }
 
 .list .prev {
-  transform: translateX(-220px) scale(.60);
+  transform: translateX(-220px) scale(.70);
 }
 
 .list .next {
-  transform: translateX(220px) scale(.60);
+  transform: translateX(220px) scale(.70);
 }
 
 .list .hide {
-  transform: translateX(-420px) scale(.60);
+  transform: translateX(-420px) scale(.70);
 }
 
 .list .new-next {
@@ -433,6 +433,18 @@ body.stage-3 .rig-background {
    opacity: 0;
    /* transition: opacity   0.7s ease; */
 }
+
+
+/* Stage 2: rig background becomes white with blue border */
+/* body.stage-2 .rig-background {
+  background: white;
+  border: 3px solid #2a9df4;
+  height: 100%;
+  border-radius: 40px;
+  opacity: 1;
+} */
+
+
 
 body.stage-3 main.builder-section {
   position: relative;
@@ -505,42 +517,113 @@ body.stage-3 .footer-section .next-btn {
 
 body.stage-3 .draw-toolbar {
   position: fixed !important;
-  /* vertically center on the head */
+  
   top: 50%;
   transform: translateY(-50%);
-  /* place just to the right of the head’s center point */
-  left: calc(50% + 200px);
-  /* keep your existing flex layout */
+  
   display: flex;
   flex-direction: row;
   gap: 16px;
   z-index: 10;
+  
+  width: 50%;
+  height: 20%;
+  border-radius: 30px;
+  
+}
+
+body.stage-3 .draw-toolbar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 16px;
+  background-color: none;
+  border-radius: 24px;
+  z-index: 10;
+}
+
+/* === Radial Fan Layout === */
+.color-picker {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-right: 20px;
+}
+
+/* Position swatches radially */
+.color-picker .color-swatch {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* border: 0px solid #2a9df4; */
+  border: none;
+  /* box-shadow: 0 0 2px rgba(0,0,0,0.3); */
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+/* Optional: highlight selected */
+.color-picker .color-swatch.selected {
+  border: 10px solid #f4b63d;
+}
+
+
+.button-row {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.arc-button {
+  position: absolute;
+  background: #e85e24;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+#clearBtn {
+  border-radius: 999px;
+  width: auto;
+  padding: 8px 16px;
+  margin-left: 20px;
+  font-size: 1.5rem;
 }
 
 /* ensure each card can position its corner circle */
-body.stage-3 .draw-toolbar .card-wrapper {
+/* body.stage-3 .draw-toolbar .card-wrapper {
   position: relative;
 }
 
 body.stage-3 .draw-toolbar .card-wrapper {
-  width: 150px;    /* shrink from 240px */
-  height: 150px;   /* shrink from 240px */
-  transform: none; /* remove any scale inherited */
-}
+  width: 150px;    
+  height: 150px;   
+  transform: none; 
+} */
 
-body.stage-3 .draw-toolbar .card-wrapper .card-bg {
+/* body.stage-3 .draw-toolbar .card-wrapper .card-bg {
   width: 100%;
   height: 100%;
-}
+} */
 
-body.stage-3 .draw-toolbar .card-content {
-  padding: 8px;    /* tighten up text/swatches */
-}
+/* body.stage-3 .draw-toolbar .card-content {
+  padding: 8px; 
+   }
+     /* tighten up text/swatches */
 
 /* optionally shrink the corner icon a bit */
-body.stage-3 .draw-toolbar .corner-circle {
+/* body.stage-3 .draw-toolbar .corner-circle {
   transform: scale(0.6);
-}
+} */
 
 /*  show carousel arrows in stage-1 & stage-2 */
 body:not(.stage-3):not(.stage-4) .carousel-nav {
@@ -567,7 +650,6 @@ body.stage-2 .carousel-nav {
 }
 
 
-
 /* ---------------------------------------
    6.3) STAGE 3 TOOLBAR
 --------------------------------------- */
@@ -591,32 +673,32 @@ body.stage-3 .carousel-nav {
   display: none !important;
 }
 
-.color-picker {
+/* .color-picker {
   display: grid !important;
   grid-template-columns: repeat(2, auto);
   grid-auto-rows: auto;
   gap: 8px;
   justify-content: center;
-}
-.color-swatch {
+} */
+/* .color-swatch {
   width: 24px;
   height: 24px;
   border-radius: 50%;
   border: 2px solid #fff;
   box-shadow: 0 0 2px rgba(0,0,0,0.3);
   cursor: pointer;
-}
-.color-swatch.selected {
+} */
+/* .color-swatch.selected {
   border: 2px solid #000;
-}
+} */
 
-body.stage-3 .draw-toolbar #undoBtn,
+/* body.stage-3 .draw-toolbar #undoBtn,
 body.stage-3 .draw-toolbar #redoBtn {
   width: 40px;
   height: 40px;
   padding: 0;
   border-radius: 50%;
-  background: #58aaf7;      /* same blue as other buttons */
+  background: #58aaf7;     
   color: #fff;
   border: none;
   display: flex;
@@ -630,13 +712,13 @@ body.stage-3 .draw-toolbar #clearBtn {
   background: #fff;
   color: #58aaf7;
   border: 2px solid #58aaf7;
-  border-radius: 999px;      /* fully pill-shaped */
+  border-radius: 999px;      
   padding: 8px 16px;
   font-size: 0.9rem;
   cursor: pointer;
 }
 
-
+ */
 
 
 /*  ❌ turn off all nav buttons & extra slides */
@@ -709,6 +791,18 @@ body.stage-4 #faceCanvas {
   transform: none !important;
 }
 
+body.stage-4 .rig-background {
+  /* background: linear-gradient(to top, #2a9df4, transparent); */
+  opacity: 0;
+  
+  /* transition: background 0.7s ease, opacity 0.7s ease, width 0.7s ease; */
+}
+
+.rig-background {
+  transition: background 0.7s ease, opacity 0.7s ease;
+}
+
+
 /* body.stage-4 main.builder-section {
   
   transform: translateX(-120px);
@@ -723,23 +817,29 @@ body.stage-4 #faceCanvas {
 
 
 /* base styling, hidden by default */
+.left-panel,
 .right-panel {
   position: fixed;
   top: 50%;
-   right: 300px;
   transform: translateY(-50%) translateX(100px);
   opacity: 0;
   pointer-events: none;
   width: 280px;
   background: rgba(255,255,255,0.95);
-  padding: 16px;
-  border-radius: 12px;
+  background: #f4b63d;
+  padding: 20px;
+  border-radius: 30px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   transition: opacity 0.7s ease, transform 0.7s ease;
   z-index: 1005; /* above everything else */
 }
 
+.left-panel  { left:  200px; }
+.right-panel { right: 200px; }
+
+
 /* only show & slide in on stage-4 */
+body.stage-4 .left-panel,
 body.stage-4 .right-panel {
   opacity: 1;
   pointer-events: auto;
@@ -747,15 +847,20 @@ body.stage-4 .right-panel {
 }
 
 /* form groups */
+.left-panel .form-group,
 .right-panel .form-group {
   margin-bottom: 16px;
 }
+
+.left-panel .form-group label,
 .right-panel .form-group label {
   display: block;
   font-weight: 600;
   margin-bottom: 6px;
-  color: #2a9df4;
+  color: #fff;
 }
+
+.left-panel .input-field,
 .right-panel .input-field {
   width: 100%;
   padding: 8px 12px;
@@ -766,33 +871,159 @@ body.stage-4 .right-panel {
   outline: none;
   transition: border-color 0.2s;
 }
+
+.left-panel .input-field:focus,
 .right-panel .input-field:focus {
   border-color: #e85e24;
 }
 
 /* traits section */
+.left-panel .traits-section p,
 .right-panel .traits-section p {
   margin: 0 0 8px;
   font-weight: 600;
   color: #2a9df4;
 }
+
+.left-panel .tags,
 .right-panel .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
 }
+
+.left-panel .tag,
 .right-panel .tag {
   padding: 4px 8px;
   border-radius: 999px;
   font-size: 0.85rem;
   color: white;
 }
-.right-panel .tag.pink { background: #e91e63; }
-.right-panel .tag.blue { background: #1e3a8a; }
-.right-panel .add-tag {
+
+.left-panel .tag.pink { background: #e91e63; }
+.left-panel .tag.blue { background: #1e3a8a; }
+.left-panel .add-tag {
   margin-top: 4px;
 }
+
+
+.card-input {
+  position: absolute;
+  background: #f4b63d;
+  padding: 14px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-weight: bold;
+  color: white;
+  transform: rotate(-5deg);
+  z-index: 1000;
+  max-width: 200px;
+  text-align: left;
+}
+
+.card-input input,
+.card-input textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.card-input .icon {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: #e91e63;
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trait-card {
+  font-size: 0.85rem;
+  line-height: 1.1;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  transform: rotate(-10deg);
+  width: auto;
+  max-width: 160px;
+}
+
+.trait-card.blue {
+  background: #2a9df4;
+}
+
+.trait-card.pink {
+  background: #e91e63;
+}
+
+
+
+.card-input {
+  display: none; /* default hidden */
+}
+
+body.stage-4 .card-input {
+  display: block;
+}
+
+
+body.stage-4 .name-card {
+  top: 75px;
+  left: 450px;
+  transform: rotate(-10deg);
+}
+
+body.stage-4 .fav-card {
+  top: 150px;
+  right: 400px;
+  transform: rotate(8deg);
+}
+
+body.stage-4 .trait-card.blue {
+  bottom: 190px;
+  left: 460px;
+  transform: rotate(-8deg);
+}
+
+body.stage-4 .trait-card.pink {
+  bottom: 150px;
+  left: 520px;
+  transform: rotate(8deg);
+}
+
+
+
+body.stage-4 .email-card {
+  bottom: 50px;
+  right: 440px;
+  transform: rotate(-6deg);
+}
+
+.red-bg {
+  background-color: #e53935 !important;
+  color: white;
+}
+
+.red-bg:hover {
+  background-color: transparent;
+  border: 3px solid #e53935;
+  color: #f4b63d;
+}
+
+
 
 
 /* ---------------------------------------
@@ -1155,17 +1386,6 @@ body.stage-4 .right-panel {
 }
 
 
-  .rig-background {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90px;   /* adjust width as needed */
-      height: 80%;    /* tall vertical bar */
-      background-color: #2a9df4; /* your blue */
-      z-index: 0;     /* behind SVG & carousels */
-      border-radius: 20px; /* optional: rounded edges */
-    }
 
 
 
