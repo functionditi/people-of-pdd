@@ -108,15 +108,14 @@ body {
   justify-content: center;
   padding: 60px 120px;
   flex: 1 1 16.666%;
-  /* 1/6 */
 }
 
-.header-top {
+/* .header-top {
   position: absolute;
   left: 30px;
   top: 50%;
   transform: translateY(-50%);
-}
+} */
 
 
 .back-buttons {
@@ -144,10 +143,9 @@ body {
 /* ---------------------------------------
    5) HEADER TITLE SECTION
 --------------------------------------- */
-
+/* 
 .title-section {
   text-align: center;
-  /* max-width: 600px; */
 }
 
 .title-section h1 {
@@ -158,7 +156,7 @@ body {
 .title-section h2 {
   margin: 0;
   padding: 0;
-}
+} */
 
 .steps {
   display: flex;
@@ -178,10 +176,10 @@ body {
   background: #2a9df4;
 }
 
-.subtitle {
+/* .subtitle {
   margin: 0;
   font-size: 1rem;
-}
+} */
 
 /* ---------------------------------------
    6.2) BUILDER SECTION (CHARACTER PAGE)
@@ -1542,31 +1540,6 @@ body.stage-4 .email-card {
 .character-svg:hover {
   transform: scale(1.05);
   z-index: 3;
-}
-
-.tooltip {
-  position: fixed;
-  background: #2a9df4;
-  color: white;
-  padding: 12px;
-  border-radius: 12px;
-  max-width: 180px;
-  font-size: 0.85rem;
-  z-index: 9999;
-  /* ✨ ensures it's on top of everything */
-  display: none;
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.tooltip .tag {
-  display: inline-block;
-  background-color: #eabec5;
-  border-radius: 10px;
-  padding: 2px 8px;
-  margin-top: 6px;
-  font-size: 0.75rem;
-  color: white;
 }
 
 .character-svg {

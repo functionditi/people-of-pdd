@@ -483,13 +483,10 @@
     }
 
     init() {
-      this.buildSlides()
-      this.bindEvents()
-      this.createNavButtons()
-      this.updateClasses()         // first pass
-      setTimeout(() => {
-        this.updateClasses()       // second pass after svg fetch/layout
-      }, 10)                       // you can lower this delay if it's too long
+      this.buildSlides();
+      this.bindEvents();
+      this.createNavButtons();
+      this.updateClasses();
     }
 
     buildSlides() {

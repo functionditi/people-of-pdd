@@ -6,36 +6,151 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <title>Character Gallery</title>
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
   <style>
-    body {
+    /* Reset */
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: 'PP Mori', sans-serif;
       background: white;
       color: #2a9df4;
     }
 
-    header {
-      padding: 20px;
-      text-align: center;
+    /* HEADER */
+    .header {
+      width: 100%;
+      background: white;
+      padding-top: 30px;
     }
+
+
 
     .header-top {
       display: flex;
-      justify-content: space-between;
+      /* background-color: #ffe699; */
       align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+
+      /* no horizontal padding */
+      /* width: 100%; */
+      position: relative;
     }
 
-    .title-section h1 {
+
+    /* Center section is absolutely centered, unaffected by side widths */
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    /* Left and right columns */
+    .header-left,
+    .header-right {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      /* prevent shrinking */
+    }
+
+    /* BUTTONS */
+    .circle-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #2a9df4;
+      color: #fff;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .text-back {
+      padding: 10px 20px;
+      border-radius: 20px;
+      background-color: #2a9df4;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* TITLE */
+    .header-center h1 {
+      color: #2a9df4;
+      text-transform: uppercase;
       font-size: 2rem;
+      letter-spacing: 2px;
       margin: 0;
     }
 
-
     .subtitle {
-      font-size: 1rem;
-      color: #333;
+      color: #2a9df4;
+      font-size: 0.9rem;
+      margin: 5px 0 0;
     }
 
+    /* SEARCH */
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-container input {
+      padding: 8px 14px;
+      border: 2px solid #2a9df4;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-family: 'PP Mori', sans-serif;
+      text-transform: uppercase;
+      color: #2a9df4;
+      outline: none;
+      width: 200px;
+    }
+
+    .search-container input::placeholder {
+      color: #2a9df4;
+      opacity: 0.8;
+    }
+
+    .search-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #2a9df4;
+      background-color: #2a9df4;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+
+    .search-btn:hover {
+      background-color: #1e7fd1;
+    }
+
+    /* FOOTER */
+    .footer-section {
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* GALLERY */
     #gallery-container {
       position: relative;
       width: 100%;
@@ -46,90 +161,99 @@
     .gallery-card {
       position: absolute;
       transform-origin: center center;
-    }
-
-    .gallery-card {
+      transition:
+        left 0.4s ease,
+        top 0.4s ease,
+        opacity 0.3s ease,
+        transform 0.3s ease;
+      /* start with full opacity */
+      opacity: 1;
       transform: scale(1);
-      transition: transform 0.3s ease-in-out;
     }
 
     .gallery-card:hover {
       transform: scale(1.5) !important;
     }
 
-
-
-    button {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* tooltip container */
+    /* TOOLTIP */
     .tooltip {
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(-50%, -110%);
-      padding: 12px 16px;
+      transform: translate(-50%, -110%) scale(0.1);
+      padding: 6px 12px;
       background-color: #2a9df4;
       border-radius: 12px;
-      display: none;
+      opacity: 0;
+      pointer-events: none;
       z-index: 100;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
     }
 
     .tooltip::after {
       content: '';
       position: absolute;
-      bottom: -10px;
-      /* pull it below the bubble */
+      bottom: -4px;
       left: 50%;
-      /* center horizontally */
       transform: translateX(-50%);
-      border-width: 10px 10px 0 10px;
-      /* triangle size */
+      border-width: 7px 7px 0 7px;
       border-style: solid;
       border-color: #2a9df4 transparent transparent transparent;
     }
 
-    /* name in caps, white */
     .tooltip h3 {
       margin: 0 0 4px;
       color: #fff;
       text-transform: uppercase;
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    /* favourite thing in quotes, light yellow */
-    .tooltip p {
-      margin: 0;
-      color: #ffe699;
       font-size: 0.8rem;
       text-align: center;
     }
 
-    /* show on hover */
+    .tooltip p {
+      margin: 0;
+      color: #ffe699;
+      font-size: 0.5rem;
+      text-align: center;
+    }
+
     .gallery-card:hover .tooltip {
-      display: block;
+      opacity: 1;
+      transform: translate(-50%, -110%) scale(1);
+      pointer-events: auto;
     }
   </style>
 </head>
 
 <body>
-  <header>
+  <header class="header">
     <div class="header-top">
-      <button onclick="goBack()">←</button>
-      <button onclick="goBack()">BACK TO MAIN PAGE</button>
-    </div>
-    <div class="title-section">
-      <h1>GALLERY</h1>
-      <p class="subtitle">Step into the characters of the PDD Community!</p>
+      <!-- Left Column -->
+      <div class="header-left">
+        <button id="goBackMain" class="circle-button" onclick="goBack()">←</button>
+        <button class="text-back" onclick="goBack()">BACK TO MAIN PAGE</button>
+      </div>
+
+      <!-- Center Column -->
+      <div class="header-center">
+        <h1>GALLERY</h1>
+        <p class="subtitle">Step into the characters of the PDD Community!</p>
+      </div>
+
+      <!-- Right Column -->
+      <div class="header-right search-container">
+        <input type="text" id="search-input" placeholder="SEARCH NAME" autocomplete="off" />
+        <button id="search-btn" class="search-btn">&#128269;</button>
+      </div>
     </div>
   </header>
 
   <main id="gallery-container"></main>
-  <footer><button id="shuffle-btn">SHUFFLE</button></footer>
+  <footer class="footer-section">
+    <!-- <button id="shuffle-btn" class="text-back next-btn">SHUFFLE</button> -->
+  </footer>
+
+
+
   <script>
     const CARD_W = 200 / 1.5;
     const CARD_H = 360 / 1.5;
@@ -143,18 +267,48 @@
     window.addEventListener('resize', resizeContainer);
     function goBack() { window.location.href = 'index.html'; }
 
+
     document.addEventListener('DOMContentLoaded', () => {
+      // resize the gallery container to fill the remaining viewport
       resizeContainer();
+
+      // load saved characters and render
       const raw = localStorage.getItem('galleryCharacters');
       const gallery = JSON.parse(raw || '[]');
-
       gallery.forEach((data, i) => renderAvatar(data, i, 1));
-      nonOverlapShuffle();
 
-      document
-        .getElementById('shuffle-btn')
-        .addEventListener('click', nonOverlapShuffle);
+      // initial layout
+      brickLayout();
+
+      // re‑layout on window resize
+      window.addEventListener('resize', () => {
+        resizeContainer();
+        brickLayout();
+      });
+
+      // set up live search
+      const searchInput = document.getElementById('search-input');
+      const searchBtn = document.getElementById('search-btn');
+
+      if (searchInput) {
+        // live‑type filtering
+        searchInput.addEventListener('input', filterGallery);
+      }
+
+      // optional: still allow button click
+      if (searchBtn) {
+        searchBtn.addEventListener('click', filterGallery);
+      }
+
+      // shuffle button (if you keep it)
+      const shuffleBtn = document.getElementById('shuffle-btn');
+      if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', brickLayout);
+      }
     });
+
+
+
 
     function drawStrokesOnCanvas(strokes, canvas) {
       const ctx = canvas.getContext('2d');
@@ -176,16 +330,14 @@
       });
     }
 
-
     function renderAvatar({ selections, faceData, name, favThing }, index, scale = 1) {
-      // create card wrapper
       const wrapper = document.createElement('div');
       wrapper.classList.add('gallery-card');
+      wrapper.dataset.name = name.trim().toLowerCase();
       wrapper.style.width = CARD_W + 'px';
       wrapper.style.height = CARD_H + 'px';
       wrapper.style.transform = `scale(${scale})`;
 
-      // base SVG
       const svgNS = 'http://www.w3.org/2000/svg';
       const svg = document.createElementNS(svgNS, 'svg');
       svg.setAttribute('viewBox', `0 0 ${CARD_W} ${CARD_H}`);
@@ -197,11 +349,19 @@
       svg.style.top = '0';
       svg.style.zIndex = '1';
 
-      // group to center avatars
       const group = document.createElementNS(svgNS, 'g');
       group.setAttribute('transform', `translate(${CARD_W / 2}, 10)`);
 
-      // define body‑part centers
+      // Add random base shape first
+      const baseShape = createBaseShape(svgNS, CARD_W);
+      // Move it further down by 20px
+      baseShape.setAttribute(
+        'transform',
+        (baseShape.getAttribute('transform') || '') + ' translate(0, 20)'
+      );
+      group.appendChild(baseShape);
+
+      // Define body-part centers
       const baseRig = {
         head: { x: 0, y: 20 },
         neck: { x: 0, y: 20 },
@@ -214,6 +374,7 @@
         footL: { x: 0, y: 180 },
         footR: { x: 0, y: 180 }
       };
+
       const centers = [
         { ctr: baseRig.footL, size: 80 },
         { ctr: baseRig.kneeL, size: 100 },
@@ -221,7 +382,7 @@
         { ctr: baseRig.head, size: 60 }
       ];
 
-      // draw the four images into the SVG
+      // Add character images
       centers.forEach((cfg, i) => {
         const img = document.createElementNS(svgNS, 'image');
         img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', selections[3 - i]);
@@ -235,7 +396,7 @@
       svg.appendChild(group);
       wrapper.appendChild(svg);
 
-      // overlay the face-strokes PNG exactly over the head
+      // Overlay face strokes
       if (faceData) {
         const headCfg = centers[3];
         const overlay = document.createElement('img');
@@ -244,14 +405,14 @@
         overlay.height = headCfg.size;
         overlay.style.position = 'absolute';
         const offsetX = CARD_W / 2 + headCfg.ctr.x - headCfg.size / 2;
-        const offsetY = 10 + headCfg.ctr.y - headCfg.size / 2;
+        const offsetY = 5 + headCfg.ctr.y - headCfg.size / 2;
         overlay.style.left = `${offsetX}px`;
         overlay.style.top = `${offsetY}px`;
         overlay.style.zIndex = '2';
         wrapper.appendChild(overlay);
       }
 
-      // tooltip with name and favourite thing
+      // Tooltip with name and favorite thing
       const tooltip = document.createElement('div');
       tooltip.classList.add('tooltip');
       tooltip.innerHTML = `
@@ -260,38 +421,130 @@
   `;
       wrapper.appendChild(tooltip);
 
-      // add card and randomize its position
       container.appendChild(wrapper);
-      //positionCard(wrapper);
     }
 
+    function filterGallery() {
+      const term = document.getElementById('search-input')
+        .value.trim()
+        .toLowerCase();
 
-    function nonOverlapShuffle() {
       const cards = Array.from(document.querySelectorAll('.gallery-card'));
-      const placed = [];
+
+      if (!term) {
+        // no search → show all and re‑layout
+        cards.forEach(card => card.style.display = '');
+        brickLayout();
+        return;
+      }
+
+      const matching = [];
+      const nonMatching = [];
 
       cards.forEach(card => {
-        const w = card.offsetWidth, h = card.offsetHeight;
-        let x, y, rect, colliding, tries = 0;
+        if (card.dataset.name.includes(term)) {
+          matching.push(card);
+          card.style.display = '';
+        } else {
+          nonMatching.push(card);
+          card.style.display = 'none';
+        }
+      });
 
-        do {
-          x = Math.random() * (container.clientWidth - w);
-          y = Math.random() * (container.clientHeight - h);
-          rect = { x, y, w, h };
-          colliding = placed.some(o =>
-            !(rect.x + rect.w < o.x ||
-              rect.x > o.x + o.w ||
-              rect.y + rect.h < o.y ||
-              rect.y > o.y + o.h)
-          );
-          tries++;
-        } while (colliding && tries < 200);
+      // clear & re‑append: matching first, then hidden ones
+      container.innerHTML = '';
+      [...matching, ...nonMatching].forEach(card => {
+        container.appendChild(card);
+      });
 
-        card.style.left = x + 'px';
-        card.style.top = y + 'px';
-        placed.push(rect);
+      brickLayout();
+    }
+
+    function brickLayout() {
+      const cards = Array.from(document.querySelectorAll('.gallery-card'));
+      if (cards.length === 0) return;
+
+      const cardW = cards[0].offsetWidth;
+      const cardH = cards[0].offsetHeight;
+      const containerWidth = container.clientWidth;
+
+      const margin = 100;  // left & right margin
+      const gapX = containerWidth / 10;    // horizontal gap
+      const gapY = 40;     // vertical gap
+
+      // Calculate how many cards can fit in the widest row
+      const usableWidth = containerWidth - 2 * margin;
+      const maxCardsPerRow = Math.floor((usableWidth + gapX) / (cardW + gapX));
+
+      let x = 0;
+      let y = 0;
+      let row = 0;
+      let col = 0;
+
+      cards.forEach((card, i) => {
+        // For odd rows, apply half offset
+        const offsetX = (row % 2 === 0) ? 0 : (cardW / 2 + gapX / 2);
+
+        // Compute position
+        card.style.left = `${margin + x + offsetX}px`;
+        card.style.top = `${margin + y}px`;
+
+        // Advance column
+        col++;
+        x += cardW + gapX;
+
+        // If next card exceeds usable width, break to next row
+        if (col >= maxCardsPerRow || (margin + x + cardW + offsetX > containerWidth - margin)) {
+          row++;
+          col = 0;
+          x = 0;
+          y += cardH + gapY;
+        }
       });
     }
+
+
+    function createBaseShape(svgNS) {
+      const shapes = [
+        {
+          type: 'ellipse',
+          cx: 68.41, cy: 28.33, rx: 53.5, ry: 16.59
+        },
+        {
+          type: 'path',
+          d: 'M101.97,31.92l-35.5,17.77c-5.41,2.71-11.77,2.77-17.24.17L11.98,32.14c-3.41-1.62-3.41-6.48,0-8.1L48.4,6.69c5.31-2.53,11.47-2.55,16.79-.05l36.67,17.2c3.39,1.59,3.46,6.4.1,8.08Z'
+        },
+        {
+          type: 'path',
+          d: 'M94.9,36l4.47,8.76c2.07,4.04-8.4,7.25-17.15,5.25l-18.94-4.34c-1.52-.35-3.38-.34-4.9.03l-18.85,4.55c-8.7,2.11-19.24-1-17.26-5.1l4.28-8.86c.34-.71-.24-1.44-1.53-1.93l-16.12-6.02c-7.44-2.79-3.49-7.93,6.48-8.43l21.59-1.07c1.73-.09,3.24-.54,3.95-1.2l8.88-8.23c4.1-3.79,17.08-3.82,21.27-.04l9.06,8.16c.73.66,2.24,1.1,3.97,1.18l21.61.93c9.98.43,14.04,5.5,6.66,8.32l-15.99,6.1c-1.29.49-1.85,1.22-1.49,1.93Z'
+        }
+      ];
+
+      const colors = ['#9e005d', '#3fa9f5', '#22b573', '#e85e24', '#f7931e'];
+
+      // Pick random shape and color
+      const shapeData = shapes[Math.floor(Math.random() * shapes.length)];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      // Create SVG element
+      const base = document.createElementNS(svgNS, shapeData.type);
+      base.setAttribute('fill', color);
+
+      // Apply attributes
+      if (shapeData.type === 'ellipse') {
+        base.setAttribute('cx', 0);
+        base.setAttribute('cy', 180);
+        base.setAttribute('rx', shapeData.rx);
+        base.setAttribute('ry', shapeData.ry);
+      } else if (shapeData.type === 'path') {
+        base.setAttribute('d', shapeData.d);
+        base.setAttribute('transform', 'translate(-60, 150)'); // adjust position
+      }
+
+      return base;
+    }
+
+
 
 
 
