@@ -90,13 +90,13 @@
       color: #2a9df4;
       text-transform: uppercase;
       font-size: 2rem;
-      letter-spacing: 2px;
+      /* letter-spacing: 2px; */
       margin: 0;
     }
 
     .subtitle {
       color: #2a9df4;
-      font-size: 0.9rem;
+      font-size: 1rem;
       margin: 5px 0 0;
     }
 
@@ -220,6 +220,73 @@
       opacity: 1;
       transform: translate(-50%, -110%) scale(1);
       pointer-events: auto;
+    }
+
+    @media (max-width: 600px) {
+
+      /* stack header into 4 centred rows with more vertical spacing */
+      .header-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 16px;
+        gap: 100px;
+        /* increased vertical gap */
+      }
+
+      /* 1) back-buttons row */
+      .header-left {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .header-center {
+        padding: 60px 0 0px 0;
+      }
+
+      /* 2) title row */
+      .header-center h1 {
+        font-size: 2.2rem;
+        /* margin: 0 0 4px 0; */
+      }
+
+      /* 3) subtitle row */
+      .header-center p.subtitle {
+        font-size: 1rem;
+        margin: 0 0 10px 0;
+      }
+
+      /* 4) search row: pill input + circle icon */
+      .search-container {
+        display: flex;
+        align-items: center;
+        width: 80%;
+        max-width: 360px;
+        gap: 10px;
+        margin-bottom: 12px;
+        /* extra space below search */
+      }
+
+      .search-container input {
+        flex: 1;
+        padding: 12px 16px;
+      }
+
+      .search-btn {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+      }
+
+      /* make all cards (and their svg + face overlays) 70% of their normal size */
+      .gallery-card {
+        transform: scale(0.7) !important;
+        transform-origin: center top !important;
+      }
+
     }
   </style>
 </head>
@@ -461,6 +528,8 @@
     }
 
     function brickLayout() {
+
+
       const cards = Array.from(document.querySelectorAll('.gallery-card'));
       if (cards.length === 0) return;
 
@@ -468,9 +537,10 @@
       const cardH = cards[0].offsetHeight;
       const containerWidth = container.clientWidth;
 
-      const margin = 100;  // left & right margin
-      const gapX = containerWidth / 10;    // horizontal gap
-      const gapY = 40;     // vertical gap
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
+      const margin = isMobile ? 20 : 100;           // less side‑margin on phones
+      const gapX = isMobile ? 10 : container.clientWidth / 10;
+      const gapY = isMobile ? 10 : 40;
 
       // Calculate how many cards can fit in the widest row
       const usableWidth = containerWidth - 2 * margin;

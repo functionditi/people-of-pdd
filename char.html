@@ -166,6 +166,8 @@
 
 
 
+
+
     <div class="draw-toolbar">
       <div class="color-picker">
         <div class="color-swatch" data-color="#234ea8" style="background:#234ea8"></div>
@@ -193,6 +195,16 @@
     <button class="text-back next-btn" style="margin-left: 20px;">NEXT</button>
   </footer>
 
+  <div class="info-card">
+    <h2>FEATURING ARTWORKS BY SHAPING HEARTS ARTISTS!</h2>
+    <p>Each clothing and print is built from artwork created by Shaping Hearts Artists Simeon and Ezra. Learn more about
+      them below.</p>
+    <div class="info-buttons">
+      <a href="https://shapinghearts.cdc.gov.sg/simeon-tan-rui-en/" target="_blank" rel="noopener"
+        class="text-back">Simeon</a>
+      <a href="https://shapinghearts.cdc.gov.sg/ezra-chan-yi/" target="_blank" rel="noopener" class="text-back">Ezra</a>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </body>
@@ -452,19 +464,30 @@
    * @param {string} src — path to your .svg file
    * @param {HTMLElement} targetEl — container where the inline SVG will go
    */
+  // replace your loadInlineSVG with this
   function loadInlineSVG(src, targetEl) {
+    // clear old content and show spinner
+    targetEl.innerHTML = '';
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
+    targetEl.appendChild(spinner);
+
     fetch(src)
       .then(res => res.text())
       .then(svgText => {
+        // replace spinner with svg
         targetEl.innerHTML = svgText;
+        // optional: turn white fills to black
+        targetEl.querySelectorAll('[fill="#fff"], [fill="#ffffff"], [fill="white"]')
+          .forEach(el => el.setAttribute('fill', 'black'));
       })
-      .catch(err => console.error('failed to load SVG:', src, err));
-
-    // turn all white fills in *any* svg into black
-    document.querySelectorAll('svg [fill="#fff"], svg [fill="#ffffff"], svg [fill="white"]')
-      .forEach(el => el.setAttribute('fill', 'black'));
-
+      .catch(err => {
+        console.error('failed to load SVG:', src, err);
+        // remove spinner on error
+        spinner.remove();
+      });
   }
+
 
 
   class Carousel {
@@ -769,7 +792,7 @@
       subtitle.textContent = "Use the left and right arrows for each section to choose.";
     } else if (stage === 2) {
       h1.textContent = "LET'S ADD SOME FUN PRINTS!";
-      subtitle.textContent = "Use the left and right arrows for each section to choose.";
+      subtitle.textContenqt = "Use the left and right arrows for each section to choose.";
     } else if (stage === 3) {
       h1.textContent = "GIVE YOUR CHARACTER A FACE!";
       subtitle.textContent = "Click and drag over the face. You can add eyes, a nose, a mouth or whatever else you please.";
