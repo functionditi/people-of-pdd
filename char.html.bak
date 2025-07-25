@@ -35,9 +35,6 @@
 
         <button class="text-back" onclick="goBack()">BACK TO MAIN PAGE</button>
       </div>
-      <button id="info-toggle" class="circle-button small yellow-bg" aria-label="info">?</button>
-    </div>
-
     </div>
 
     <div class="title-section">
@@ -139,33 +136,32 @@
   </div>
 </div> -->
 
-    <div class="bottom-sheet">
-      <!-- STAGE-4 floating cards -->
-      <div class="card-input name-card">
-        <p>HELLO, MY NAME IS</p>
-        <input type="text" id="charName" />
-      </div>
-
-      <div class="card-input fav-card">
-        <p>MY FAVOURITE THING TO DO IN PUNGGOL IS</p>
-        <textarea id="favThing"></textarea>
-        <div class="icon">🛵</div>
-      </div>
-
-      <div class="card-input trait-card blue">
-        <span>URBAN<br />ENTHUSIAST</span>
-      </div>
-
-      <div class="card-input trait-card pink">
-        <span>CYCLE LOVER</span>
-      </div>
-
-      <div class="card-input email-card">
-        <p>MY EMAIL IS</p>
-        <input type="text" id="emailAddress" placeholder="your@email.com" />
-      </div>
+    <!-- STAGE-4 floating cards -->
+    <div class="card-input name-card">
+      <p>HELLO, MY NAME IS</p>
+      <input type="text" id="charName" />
     </div>
 
+    <div class="card-input fav-card">
+      <p>MY FAVOURITE THING TO DO IN PUNGGOL IS</p>
+      <textarea id="favThing"></textarea>
+      <div class="icon">🛵</div>
+    </div>
+
+    <div class="card-input trait-card blue">
+      <span>URBAN<br />ENTHUSIAST</span>
+    </div>
+
+    <div class="card-input trait-card pink">
+      <span>CYCLE LOVER</span>
+    </div>
+
+
+
+    <div class="card-input email-card">
+      <p>MY EMAIL IS</p>
+      <input type="text" id="emailAddress" placeholder="your@email.com" />
+    </div>
 
 
 
@@ -200,7 +196,6 @@
   </footer>
 
   <div class="info-card">
-    <button id="info-close" class="circle-button small yellow-bg" aria-label="close info">←</button>
     <h2>FEATURING ARTWORKS BY SHAPING HEARTS ARTISTS!</h2>
     <p>Each clothing and print is built from artwork created by Shaping Hearts Artists Simeon and Ezra. Learn more about
       them below.</p>
@@ -1229,17 +1224,6 @@
     link.href = out.toDataURL('image/png');
     link.click();
   }
-
-  const infoToggle = document.getElementById('info-toggle');
-  infoToggle.addEventListener('click', () => {
-    document.body.classList.toggle('info-open');
-  });
-
-  const infoClose = document.getElementById('info-close');
-  infoClose.addEventListener('click', () => {
-    document.body.classList.remove('info-open');
-  });
-
 
 
 

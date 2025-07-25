@@ -1421,9 +1421,7 @@ body.stage-4 .carousel-nav {
     touch-action: manipulation;
     /* disables pinch-zoom but keeps scrolling */
     -ms-touch-action: manipulation;
-    overflow-x: hidden;
   }
-
 
 
   .homepage {
@@ -1654,124 +1652,6 @@ body.stage-4 .carousel-nav {
 
   .shoes {
     transform: translateY(150px) translateX(-150px);
-  }
-
-
-  /* 3.1 header-top flex layout & info button */
-  .header-top {
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
-    left: 0 !important;
-    top: 0 !important;
-    transform: none !important;
-    padding: 12px 16px;
-  }
-
-  .header-top .back-buttons {
-    order: 1;
-  }
-
-  .header-top h1 {
-    order: 2;
-    flex: 1;
-    text-align: center;
-    margin: 0;
-    font-size: 1.2rem;
-  }
-
-  #info-toggle {
-    order: 3;
-  }
-
-  /* 3.2 info‑drawer off‑canvas */
-  .info-card {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 80vw;
-    height: 80vh;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 2000;
-  }
-
-  body.info-open .info-card {
-    transform: translateX(0);
-  }
-
-  .info-card {
-    position: fixed;
-    top: 0;
-    right: 0;
-    /* your existing width/height/transform rules */
-  }
-
-  .info-card #info-close {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-  }
-
-  /* 3.3 hide info‑card on load (for smaller screens) */
-  @media (max-width: 768px) {
-    .info-card {
-      display: block;
-    }
-
-    /* ensure it’s present for slide-in */
-  }
-
-  /* 3.4 preserve existing stage‑visibility */
-  body.stage-2 .info-card,
-  body.stage-3 .info-card,
-  body.stage-4 .info-card {
-    /* your existing rules still apply */
-  }
-
-  /* 3.5 carousel & rig scaling */
-  #rig {
-    width: 90vw;
-    height: auto;
-  }
-
-  .list li.act {
-    transform: scale(1) !important;
-  }
-
-  .list .prev {
-    transform: translateX(-100px) scale(.7) !important;
-  }
-
-  .list .next {
-    transform: translateX(100px) scale(.7) !important;
-  }
-
-  /* 3.6 toolbar above head */
-  body.stage-3 .draw-toolbar {
-    top: auto !important;
-    bottom: auto !important;
-    left: 50% !important;
-    transform: translate(-50%, -120%) !important;
-    /* ~above the head */
-  }
-
-  /* 3.7 reserve bottom 1/3vh for bottom‑sheet in stage‑4 */
-  @media (max-width: 768px) {
-    body.stage-4 .builder-section {
-      padding-bottom: 33vh;
-    }
-  }
-
-  body.stage-4 .bottom-sheet,
-  body.stage-4 .card-input {
-    display: none !important;
-  }
-
-  /* push builder content up so it isn’t covered */
-  body.stage-4 .builder-section {
-    padding-bottom: 33vh;
-    /* same as sheet height */
   }
 
 
