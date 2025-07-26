@@ -1777,4 +1777,121 @@ body.stage-4 .carousel-nav {
 
 
 
+  /* STAGE 1 CSS MOBILE */
+
+  .char-page {
+
+
+    .rig-background {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      /* adjust width as needed */
+      height: 80%;
+      /* tall vertical bar */
+      background-color: #2a9df4;
+      /* your blue */
+      z-index: 0;
+      /* behind SVG & carousels */
+      border-radius: 30px;
+      /* optional: rounded edges */
+    }
+
+    .header-top {
+      /* position: absolute; */
+      transform: rotate(-2deg) !important;
+    }
+
+    .header-top .text-back {
+      display: none;
+    }
+
+    .header-top .header-text {
+      color: #fff;
+    }
+
+    .header-top .circle-button {
+      background-color: #fff;
+      color: #2a9df4;
+    }
+
+    .header-top #info-toggle {
+      background-color: #f4b63d;
+      color: #fff;
+    }
+
+    .header-top {
+      background-color: #58aaf7;
+      border-radius: 20px;
+    }
+
+    .title-section {
+      margin-top: 5px;
+      background-color: #f7931e;
+      border-radius: 20px;
+      padding-top: 10px;
+      padding-bottom: 15px;
+      padding: 10px 20px 20px 20px;
+      transform: rotate(3deg) !important;
+    }
+
+    .title-section h1 {
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    /* .title-section .steps {} */
+
+
+    .step {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      margin: 0 8px;
+    }
+
+    .step.active {
+      background: #fff;
+    }
+
+    .footer-section {
+      background: linear-gradient(to bottom, transparent 50%, #f4b63d 50%);
+    }
+
+    .next-btn {
+      background-color: #2a9df4;
+
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 15px 30px;
+      border-radius: 15px;
+      cursor: pointer;
+      transform: rotate(-8deg) !important;
+    }
+
+    .back-btn {
+      background-color: #e85e24;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 15px 30px;
+      border-radius: 15px;
+      cursor: pointer;
+      transform: rotate(2deg) !important;
+    }
+
+  }
+
+
+
 }
+
+/* .header-top .header-text {
+  display: none
+} */
