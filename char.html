@@ -439,7 +439,7 @@
     });
 
     if (!root.classList.contains('stage-4')) {
-      positionCarousels();
+      // positionCarousels();
     }
 
     requestAnimationFrame(animate);
@@ -689,7 +689,7 @@
     torsoDiv.style.left = `${torsoPos.x}px`
 
     if (window.innerWidth <= 768)
-      torsoDiv.style.top = `${torsoPos.y - (yspacing + 265)}px`
+      torsoDiv.style.top = `${torsoPos.y - (yspacing + 260)}px`
     else
       torsoDiv.style.top = `${torsoPos.y - (yspacing + 150)}px`
 

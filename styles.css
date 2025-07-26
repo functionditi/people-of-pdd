@@ -286,6 +286,15 @@ body.stage-2 .carousel-nav {
 }
 
 
+.head {
+  transform: translateY(-190px)translateX(-400px);
+}
+
+.torso {
+  transform: translateY(-120px)translateX(-400px);
+}
+
+
 .legs {
   transform: translateY(50px)translateX(-400px);
 }
@@ -294,7 +303,7 @@ body.stage-2 .carousel-nav {
   transform: translateY(190px)translateX(-400px);
 }
 
-.head {
+/* .head {
   position: absolute;
   top: 100px;
   left: 50%;
@@ -308,7 +317,7 @@ body.stage-2 .carousel-nav {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-}
+} */
 
 
 
@@ -351,12 +360,12 @@ width: 250px;
 }
 
 .head {
-  position: absolute;
+  /* position: absolute; */
   z-index: 4;
 }
 
 .torso {
-  position: absolute;
+  /* position: absolute; */
   z-index: 3;
 }
 
@@ -1609,9 +1618,9 @@ body.stage-4 .carousel-nav {
   }
 
   .head li {
-    width: 100px;
-    height: 100px;
-    margin-left: -50px;
+    width: 90px;
+    height: 90px;
+    margin-left: -45px;
   }
 
   .torso li {
@@ -1650,6 +1659,15 @@ body.stage-4 .carousel-nav {
 
   .list .next {
     transform: translateX(100px) scale(.4) !important;
+  }
+
+
+  .head {
+    transform: translateY(-140px) translateX(-150px);
+  }
+
+  .torso {
+    transform: translateY(-80px) translateX(-150px);
   }
 
 
