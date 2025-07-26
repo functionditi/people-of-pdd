@@ -1802,6 +1802,22 @@ body.stage-4 .carousel-nav {
 
   }
 
+  body.stage-3 .button-row {
+    position: relative;
+    /* ensure children stay in this box */
+    /* transform: rotate(90deg); */
+    /* spin the arc 90° */
+    transform-origin: center center;
+    transform: translateX(-58%) translateY(-50%) !important;
+    /* transform: translateX(-95%) translateY(45%) !important; */
+    /* pivot around its own center */
+    width: 100vw;
+    /* you may need to swap dimensions */
+    height: auto;
+    margin: 0 auto;
+    /* center it horizontally */
+  }
+
   /* if you need to tweak individual buttons */
   body.stage-3 #undoBtn,
   body.stage-3 #redoBtn {
@@ -1809,6 +1825,7 @@ body.stage-4 .carousel-nav {
     /* horizontal spacing */
     font-size: 1.2rem !important;
     /* bigger/smaller icons */
+    display: none;
   }
 
   body.stage-3 #clearBtn {
@@ -1816,6 +1833,8 @@ body.stage-4 .carousel-nav {
     padding: 10px 20px !important;
     font-size: 1rem !important;
   }
+
+
 
   /* 3.7 reserve bottom 1/3vh for bottom‑sheet in stage‑4 */
   @media (max-width: 768px) {

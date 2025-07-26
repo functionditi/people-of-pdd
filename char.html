@@ -847,18 +847,32 @@
   function layoutButtonsInArc() {
     const buttons = document.querySelectorAll('.button-row .arc-button');
     const radius = 200;
-    const arcStart = 90 - 45 - 25;  // ← flipped: start from bottom
-    const arcEnd = -90 + 45 + 25;
+    const arcStart = 90 - 45 - 25;    // start angle in degrees
+    const arcEnd = -90 + 45 + 25;    // end angle in degrees
     const step = (arcEnd - arcStart) / (buttons.length - 1);
 
+    // detect mobile
+    const isMobile = window.innerWidth <= 768;
+    const rotationOffset = isMobile ? 90 : 0;  // add 90° on mobile only
+
     buttons.forEach((btn, i) => {
-      const angle = (arcStart + step * i) * (Math.PI / 180);
-      const x = radius * Math.cos(angle) + 275; // centerX = 100
-      const y = radius * Math.sin(angle) + 60; // centerY = 100
+      // compute the base angle + offset
+      const angleDeg = arcStart + step * i + rotationOffset;
+      const angle = angleDeg * Math.PI / 180;
+
+      // lay out as before
+      const x = radius * Math.cos(angle) + 275;  // adjust centerX if needed
+      const y = radius * Math.sin(angle) + 60;  // adjust centerY if needed
+
       btn.style.left = `${x}px`;
       btn.style.top = `${y}px`;
     });
   }
+
+  // rerun on resize to keep things in sync
+  window.addEventListener('resize', layoutButtonsInArc);
+  window.addEventListener('DOMContentLoaded', layoutButtonsInArc);
+
 
   document.addEventListener('DOMContentLoaded', () => {
     layoutSwatchesInArc();
