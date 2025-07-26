@@ -1615,46 +1615,53 @@ body.stage-4 .carousel-nav {
   }
 
   .torso li {
-    width: 130px;
-    height: 130px;
-    margin-left: -65px;
+    width: 170px;
+    height: 170px;
+    margin-left: -85px;
   }
 
   .legs li {
-    width: 130px;
-    height: 130px;
-    margin-left: -65px;
+    width: 170px;
+    height: 170px;
+    margin-left: -85px;
   }
 
   .shoes li {
-    width: 100px;
-    height: 100px;
-    margin-left: -50px;
-  }
-
-  .list .prev {
-    transform: translateX(-100px) scale(.85);
-  }
-
-  .list .next {
-    transform: translateX(100px) scale(.85);
+    width: 120px;
+    height: 120px;
+    margin-left: -60px;
   }
 
   .list .hide {
-    transform: translateX(-420px) scale(.85);
+    transform: translateX(-420px) scale(.75);
   }
 
   .list .new-next {
-    transform: translateX(420px) scale(.85);
+    transform: translateX(420px) scale(.75);
   }
 
+  .list li.act {
+    transform: scale(1) !important;
+  }
+
+  .list .prev {
+    transform: translateX(-100px) scale(.4) !important;
+  }
+
+  .list .next {
+    transform: translateX(100px) scale(.4) !important;
+  }
+
+
   .legs {
-    transform: translateY(50px) translateX(-150px);
+    transform: translateY(40px) translateX(-150px);
   }
 
   .shoes {
     transform: translateY(150px) translateX(-150px);
   }
+
+
 
 
   /* 3.1 header-top flex layout & info button */
@@ -1735,17 +1742,7 @@ body.stage-4 .carousel-nav {
     height: auto;
   }
 
-  .list li.act {
-    transform: scale(1) !important;
-  }
 
-  .list .prev {
-    transform: translateX(-100px) scale(.7) !important;
-  }
-
-  .list .next {
-    transform: translateX(100px) scale(.7) !important;
-  }
 
   /* 3.6 toolbar above head */
   body.stage-3 .draw-toolbar {
@@ -1801,8 +1798,10 @@ body.stage-4 .carousel-nav {
 
     .header-top {
       /* position: absolute; */
-      transform: rotate(-2deg) !important;
+      /* transform: rotate(-2deg) !important; */
+
     }
+
 
     .header-top .text-back {
       display: none;
@@ -1827,18 +1826,19 @@ body.stage-4 .carousel-nav {
       border-radius: 20px;
     }
 
+
+
     .title-section {
       margin-top: 5px;
       background-color: #f7931e;
       border-radius: 20px;
-      padding-top: 10px;
-      padding-bottom: 15px;
-      padding: 10px 20px 20px 20px;
+
+      padding: 5px 20px 15px 20px;
       transform: rotate(3deg) !important;
     }
 
     .title-section h1 {
-      font-size: 1rem;
+      font-size: 0.8rem;
       color: #fff;
     }
 
@@ -1846,10 +1846,10 @@ body.stage-4 .carousel-nav {
 
 
     .step {
-      width: 15px;
-      height: 15px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      border: 4px solid #fff;
+      border: 2px solid #fff;
       margin: 0 8px;
     }
 
@@ -1886,12 +1886,22 @@ body.stage-4 .carousel-nav {
       transform: rotate(2deg) !important;
     }
 
+    #info-toggle {
+      aspect-ratio: 1 / 1 !important;
+      width: 40px !important;
+      border-radius: 50% !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      font-size: 1.2rem !important;
+      line-height: 1 !important;
+    }
+
+
+
   }
 
 
 
 }
-
-/* .header-top .header-text {
-  display: none
-} */

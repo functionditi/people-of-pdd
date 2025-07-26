@@ -48,7 +48,7 @@
         <div class="step"></div>
         <div class="step"></div>
       </div>
-      <h1>CHOOSE YOUR CHARACTER'S BASIC OUTFIT.</h1>
+      <h1>CHOOSE YOUR CHARACTER'S BASIC OUTFIT USING THE LEFT AND RIGHT.</h1>
 
       <p class="subtitle" style="display: none;">Use the left and right arrows for each section to choose.</p>
     </div>
@@ -507,7 +507,7 @@
       this.images = images;
       this.currentIndex = 0;
       this.category = category;
-      this.spacing = window.innerWidth <= 768 ? 120 : spacing;
+      this.spacing = window.innerWidth <= 768 ? 150 : spacing;
       this.prevBtnColor = prevBtnColor;
       this.nextBtnColor = nextBtnColor;
       this.btnSize = btnSize;
@@ -689,7 +689,7 @@
     torsoDiv.style.left = `${torsoPos.x}px`
 
     if (window.innerWidth <= 768)
-      torsoDiv.style.top = `${torsoPos.y - (yspacing + 220)}px`
+      torsoDiv.style.top = `${torsoPos.y - (yspacing + 265)}px`
     else
       torsoDiv.style.top = `${torsoPos.y - (yspacing + 150)}px`
 
