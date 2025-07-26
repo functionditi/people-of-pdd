@@ -816,18 +816,33 @@
   function layoutSwatchesInArc() {
     const swatches = document.querySelectorAll('.color-picker .color-swatch');
     const radius = 200;
-    const arcStart = 90 + 45 + 10;     // ← flipped: start from bottom
-    const arcEnd = 270 - 45 - 10;      // ← to top
+    const arcStart = 90 + 45 + 10;     // start angle in degrees
+    const arcEnd = 270 - 45 - 10;    // end angle in degrees
     const step = (arcEnd - arcStart) / (swatches.length - 1);
 
+    // detect mobile
+    const isMobile = window.innerWidth <= 768;
+    const rotationOffset = isMobile ? 90 : 0;  // add 90° on mobile
+
     swatches.forEach((swatch, i) => {
-      const angle = (arcStart + step * i) * (Math.PI / 180); // degrees → radians
-      const x = radius * Math.cos(angle) + 275; // centerX = 60 (shift arc center right)
-      const y = radius * Math.sin(angle) + 60; // centerY = 60
+      // compute base angle then add offset
+      const angleDeg = arcStart + step * i + rotationOffset;
+      const angle = angleDeg * Math.PI / 180;
+
+      // you can leave your centers the same
+      const x = radius * Math.cos(angle) + 275;
+      const y = radius * Math.sin(angle) + 60;
+
       swatch.style.left = `${x}px`;
       swatch.style.top = `${y}px`;
     });
   }
+
+  // don't forget to re‑run on resize if your layout can change:
+  window.addEventListener('resize', () => {
+    layoutSwatchesInArc();
+  });
+
 
   function layoutButtonsInArc() {
     const buttons = document.querySelectorAll('.button-row .arc-button');
@@ -963,9 +978,17 @@
 
   function drawSmoothStroke(stroke) {
     if (stroke.points.length < 3) {
-      // fallback for very short strokes
-      drawAllStrokes(); // or just use a straight line
-      return;
+      // just draw a straight line for very short strokes, then return
+      const pts = stroke.points
+      if (pts.length === 2) {
+        ctx.beginPath()
+        ctx.moveTo(pts[0].x, pts[0].y)
+        ctx.lineTo(pts[1].x, pts[1].y)
+        ctx.strokeStyle = stroke.color
+        ctx.lineWidth = stroke.width
+        ctx.stroke()
+      }
+      return
     }
     ctx.beginPath();
     ctx.lineCap = 'round';

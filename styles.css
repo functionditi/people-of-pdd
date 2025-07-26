@@ -1763,12 +1763,58 @@ body.stage-4 .carousel-nav {
 
 
   /* 3.6 toolbar above head */
-  body.stage-3 .draw-toolbar {
+  /* body.stage-3 .draw-toolbar {
     top: auto !important;
     bottom: auto !important;
     left: 50% !important;
     transform: translate(-50%, -120%) !important;
-    /* ~above the head */
+
+  } */
+
+  body.stage-3 .head {
+    /* instead of scale(3), use scale(2) or whatever fits */
+    transform: translateX(-50%) translateY(-0%) scale(4) !important;
+    top: 60% !important;
+    /* nudge up/down */
+  }
+
+  body.stage-3 .torso {
+    /* instead of scale(3), use scale(2) or whatever fits */
+    transform: translateX(-50%) scale(4) !important;
+    top: 85% !important;
+    /* nudge up/down */
+  }
+
+  /* reposition & resize the draw toolbar */
+  body.stage-3 .draw-toolbar {
+    width: 80vw !important;
+    /* wider or narrower */
+    height: auto !important;
+    bottom: 100px !important;
+    /* move toolbar up from bottom */
+    top: 10% !important;
+    left: 50% !important;
+    transform: translateX(-95%) translateY(45%) !important;
+    /* transform: translateX(-80%) translateY(50%) !important;
+    transform-origin: center center !important; */
+    /* transform: rotate(10deg) !important; */
+
+
+  }
+
+  /* if you need to tweak individual buttons */
+  body.stage-3 #undoBtn,
+  body.stage-3 #redoBtn {
+    margin: 0 10px !important;
+    /* horizontal spacing */
+    font-size: 1.2rem !important;
+    /* bigger/smaller icons */
+  }
+
+  body.stage-3 #clearBtn {
+    margin: 0 10px !important;
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
   }
 
   /* 3.7 reserve bottom 1/3vh for bottom‑sheet in stage‑4 */
@@ -1915,6 +1961,9 @@ body.stage-4 .carousel-nav {
       font-size: 1.2rem !important;
       line-height: 1 !important;
     }
+
+
+
 
 
 
