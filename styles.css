@@ -2028,6 +2028,9 @@ body.stage-4 .carousel-nav {
     .header-top {
       background-color: none;
       border-radius: 20px;
+      padding: 0%;
+      padding-bottom: 5px;
+      margin: 0%;
     }
 
 
@@ -2036,20 +2039,19 @@ body.stage-4 .carousel-nav {
       margin-top: 5px;
       background-color: #f7931e;
       border-radius: 20px;
-
-      padding: 5px 20px 15px 20px;
+      padding: 5px 10px 15px 10px;
       transform: rotate(3deg) !important;
     }
 
     .title-section h1 {
-      font-size: 1.3rem;
+      font-size: 1rem;
       color: #c13a00;
     }
 
 
     .title-section .subtitle {
-      font-size: 1rem;
-      padding-top: 10px;
+      font-size: 0.8rem;
+      padding-top: 3px;
       color: #fff;
     }
 
