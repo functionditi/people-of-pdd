@@ -413,11 +413,11 @@ body.stage-2 .carousel-nav {
 
 
 .legs {
-  transform: translateY(50px)translateX(-400px);
+  transform: translateY(40px)translateX(-400px);
 }
 
 .shoes {
-  transform: translateY(190px)translateX(-400px);
+  transform: translateY(170px)translateX(-400px);
 }
 
 /* .head {
@@ -458,6 +458,7 @@ width: 250px;
 }
 
 .legs li {
+
   width: 250px;
   height: 250px;
   margin-left: -125px;
@@ -642,6 +643,26 @@ body.stage-3 .torso {
   z-index: 0 !important;
 }
 
+body.stage-4 .head {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(1);
+  transform-origin: center center;
+  /* transition: transform 0.7s ease;  */
+  z-index: 1000 !important;
+}
+
+body.stage-4 .torso {
+  position: fixed !important;
+  top: 80% !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(1);
+  transform-origin: center center;
+  /* transition: transform 0.7s ease;  */
+  z-index: 0 !important;
+}
+
 
 /* ---------------------------------------
    STAGE-3: FLOAT NEXT/BACK OVER TORSO
@@ -810,7 +831,7 @@ body.stage-2 .carousel-nav {
   background: tr ansparent;
   touch-action: none;
   cursor: crosshair;
-  cursor: url('assets/icons/brush.cur') 16 16, auto;
+  /* cursor: url('assets/icons/brush.cur') 16 16, auto; */
   transform: none !important;
 }
 
@@ -945,12 +966,14 @@ body.stage-4 .rig-background {
   /* background: linear-gradient(to top, #2a9df4, transparent); */
   opacity: 0;
 
+
   /* transition: background 0.7s ease, opacity 0.7s ease, width 0.7s ease; */
 }
 
 .rig-background {
   transition: background 0.7s ease, opacity 0.7s ease;
 }
+
 
 
 /* body.stage-4 main.builder-section {
@@ -1193,15 +1216,17 @@ body.stage-4 .card-input {
 
 
 body.stage-4 .name-card {
-  top: 75px;
-  left: 450px;
-  transform: rotate(-10deg);
+  top: 25px;
+  left: 420px;
+  transform: rotate(-6deg);
+  background: #f7931e;
 }
 
 body.stage-4 .fav-card {
-  top: 150px;
+  top: 100px;
   right: 400px;
-  transform: rotate(8deg);
+  transform: rotate(3deg);
+  background: #9e005d;
 }
 
 body.stage-4 .trait-card.blue {
@@ -1217,12 +1242,63 @@ body.stage-4 .trait-card.pink {
 }
 
 
+.card-input.email-card {
+  max-width: 300px;
+  /* wider than default (was 200px) */
+  width: 80%;
+  /* responsive width */
+  padding: 20px 25px;
+  /* more padding inside */
+  font-size: 1rem;
+  /* slightly bigger text */
+  transform: rotate(-4deg);
+  /* subtle tilt, optional */
+  background-color: #22b573;
+}
+
+.card-input.email-card input,
+.card-input.email-card small {
+  font-size: 0.9rem;
+  /* adjust input and small text */
+}
 
 body.stage-4 .email-card {
-  bottom: 50px;
-  right: 440px;
-  transform: rotate(-6deg);
+  right: 150px !important;
+  bottom: 40px !important;
+  transform: translateX(-50%) rotate(-4deg);
 }
+
+small {
+  font-size: 0.7rem;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 0%;
+}
+
+.checkbox-row input[type="checkbox"] {
+  flex: 1;
+  /* 1/5 of the row */
+  max-width: 10%;
+  transform: scale(1.2);
+
+  accent-color: #e85e24;
+  cursor: pointer;
+}
+
+.checkbox-row label {
+  flex: 5;
+  /* 4/5 of the row */
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: white;
+}
+
+
 
 .red-bg {
   background-color: #e53935 !important;
@@ -1958,202 +2034,144 @@ body.stage-4 .carousel-nav {
 
 
 
-
-
-
-
-
   /* STAGE 1 CSS MOBILE */
 
-  .char-page {
+  .char-page .rig-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    /* adjust width as needed */
+    height: 80%;
+    /* tall vertical bar */
+    background-color: #2a9df4;
+    /* your blue */
+    z-index: 0;
+    /* behind SVG & carousels */
+    border-radius: 30px;
+    /* optional: rounded edges */
+  }
 
-
-    .rig-background {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 120px;
-      /* adjust width as needed */
-      height: 80%;
-      /* tall vertical bar */
-      background-color: #2a9df4;
-      /* your blue */
-      z-index: 0;
-      /* behind SVG & carousels */
-      border-radius: 30px;
-      /* optional: rounded edges */
-    }
-
-    .header-top {
-      /* position: absolute; */
-      /* transform: rotate(-2deg) !important; */
-
-    }
-
-
-    .header-top .text-back {
-      /* display: none; */
-      font-size: 0.9rem;
-    }
-
-    .header-top .header-text {
-      color: #fff;
-    }
-
-    .header-top .circle-button {
-      color: #fff;
-      background-color: #2a9df4;
-    }
-
-    .header-top #info-toggle {
-      background-color: #f4b63d;
-      color: #fff;
-      display: none;
-    }
-
-    .header-top {
-      background-color: none;
-      border-radius: 20px;
-      padding: 0%;
-      padding-bottom: 5px;
-      margin: 0%;
-    }
-
-
-
-    .title-section {
-      margin-top: 5px;
-      background-color: #f7931e;
-      border-radius: 20px;
-      padding: 5px 10px 15px 10px;
-      transform: rotate(3deg) !important;
-    }
-
-    .title-section h1 {
-      font-size: 0.9rem;
-      color: #c13a00;
-    }
-
-
-    .title-section .subtitle {
-      font-size: 0.7rem;
-      padding-top: 3px;
-      color: #fff;
-    }
-
-
-
-    /* .title-section .steps {} */
-
-
-    .step {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      margin: 0 8px;
-    }
-
-    .step.active {
-      background: #fff;
-    }
-
-    .footer-section {
-      background: linear-gradient(to bottom, transparent 50%, #f4b63d 50%);
-    }
-
-    .next-btn {
-      background-color: #2a9df4;
-
-      border: none;
-      color: white;
-      font-weight: bold;
-      font-size: 1rem;
-      padding: 15px 30px;
-      border-radius: 15px;
-      cursor: pointer;
-      transform: rotate(-8deg) !important;
-    }
-
-    .back-btn {
-      background-color: #e85e24;
-      border: none;
-      color: white;
-      font-weight: bold;
-      font-size: 1.1rem;
-      padding: 15px 30px;
-      border-radius: 15px;
-      cursor: pointer;
-      transform: rotate(2deg) !important;
-    }
-
-    #info-toggle {
-      aspect-ratio: 1 / 1 !important;
-      width: 40px !important;
-      border-radius: 50% !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 0 !important;
-      font-size: 1.2rem !important;
-      line-height: 1 !important;
-    }
-
-
-
+  .char-page .header-top {
+    /* position: absolute; */
+    /* transform: rotate(-2deg) !important; */
 
   }
 
 
+  .char-page .header-top .text-back {
+    /* display: none; */
+    font-size: 0.9rem;
+  }
 
+  .char-page .header-top .header-text {
+    color: #fff;
+  }
 
-}
+  .char-page .header-top .circle-button {
+    color: #fff;
+    background-color: #2a9df4;
+  }
 
-@media (max-width: 768px) {
-
-  /* 1) make the rig-background visible and blue */
-  /* body.stage-4 .rig-background {
-    border: 2px solid #4a90e2;
-    opacity: 1;
-    background-color: none;
-  } */
-
-  body.stage-4 .card-input {
+  .char-page .header-top #info-toggle {
+    background-color: #f4b63d;
+    color: #fff;
     display: none;
   }
 
-
-  /* 2) cancel out any scale/translate from stage‑4, so your parts stay where they were */
-  body.stage-4 .head,
-  body.stage-4 .torso,
-  body.stage-4 .legs,
-  body.stage-4 .shoes {
-    transform: none !important;
+  .char-page .header-top {
+    background-color: none;
+    border-radius: 20px;
+    padding: 0%;
+    padding-bottom: 5px;
+    margin: 0%;
   }
 
-  /* 3) force the same mobile sizes you used in stages 1 & 2 */
-  body.stage-4 .head li {
-    width: 90px !important;
-    height: 90px !important;
-    margin-left: -45px !important;
+
+
+  .char-page .title-section {
+    margin-top: 5px;
+    background-color: #f7931e;
+    border-radius: 20px;
+    padding: 5px 10px 15px 10px;
+    transform: rotate(3deg) !important;
   }
 
-  body.stage-4 .torso li {
-    width: 170px !important;
-    height: 170px !important;
-    margin-left: -85px !important;
+  .char-page .title-section h1 {
+    font-size: 0.9rem;
+    color: #c13a00;
   }
 
-  body.stage-4 .legs li {
-    width: 170px !important;
-    height: 170px !important;
-    margin-left: -85px !important;
+
+  .char-page .title-section .subtitle {
+    font-size: 0.7rem;
+    padding-top: 3px;
+    color: #fff;
   }
 
-  body.stage-4 .shoes li {
-    width: 120px !important;
-    height: 120px !important;
-    margin-left: -60px !important;
+
+
+  /* .title-section .steps {} */
+
+
+  .char-page .step {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin: 0 8px;
   }
+
+  .char-page .step.active {
+    background: #fff;
+  }
+
+  .char-page .footer-section {
+    background: linear-gradient(to bottom, transparent 50%, #f4b63d 50%);
+  }
+
+  .char-page .next-btn {
+    background-color: #2a9df4;
+
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 15px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    transform: rotate(-8deg) !important;
+  }
+
+  .char-page .back-btn {
+    background-color: #e85e24;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    transform: rotate(2deg) !important;
+  }
+
+  .char-page #info-toggle {
+    aspect-ratio: 1 / 1 !important;
+    width: 40px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    font-size: 1.2rem !important;
+    line-height: 1 !important;
+  }
+
+
+
+
+
+
+
 }

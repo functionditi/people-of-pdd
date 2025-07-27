@@ -164,10 +164,19 @@
     </div>
 
     <div class="card-input email-card">
-      <p>MY EMAIL IS</p>
-      <input type="text" id="emailAddress" placeholder="your@email.com" />
-    </div>
 
+      <div class="checkbox-row">
+        <input type="checkbox" id="emailConsent" />
+        <label for="emailConsent">
+          I agree to receive updates and newsletters from Shaping Hearts.
+        </label>
+      </div>
+      <!-- <p style="padding: 0%; margin: 0%;">YOUR EMAIL</p> -->
+      <input type="text" id="emailAddress" placeholder="your@email.com" disabled />
+      <p>
+        You avatar will be emailed to the address above soon :)
+      </p>
+    </div>
 
 
 
@@ -218,7 +227,59 @@
       <a href="https://shapinghearts.cdc.gov.sg/ezra-chan-yi/" target="_blank" rel="noopener" class="text-back">Ezra</a>
     </div>
   </div>
+
+
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+
+  <script type="module">
+    // 1️⃣ core
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+    // 2️⃣ Firestore (database) APIs
+    import {
+      getFirestore,
+      serverTimestamp,
+      collection,
+      addDoc,
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    // 3️⃣ Storage APIs
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL,
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+    // 4️⃣ your config (keep yours here)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDwpNjnDFAA_5P64zMOt-GTSOdETx2xKJQ",
+      authDomain: "people-of-pdd-website.firebaseapp.com",
+      projectId: "people-of-pdd-website",
+      storageBucket: "people-of-pdd-website.firebasestorage.app",
+      messagingSenderId: "685048567158",
+      appId: "1:685048567158:web:abc51754b5b785219c1657",
+      measurementId: "G-1VRMYRMXKN"
+    };
+
+    // 5️⃣ init
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // 6️⃣ expose for your non‑module scripts
+    window.db = db;
+    window.storage = storage;
+    window.serverTimestamp = serverTimestamp;
+    window.collection = collection;
+    window.addDoc = addDoc;
+    window.ref = ref;
+    window.uploadBytes = uploadBytes;
+    window.getDownloadURL = getDownloadURL;
+  </script>
+
+
 
 </body>
 
@@ -256,8 +317,8 @@
     hipR: { x: 20, y: 170 },
     kneeL: { x: -30, y: 260 },
     kneeR: { x: 30, y: 260 },
-    footL: { x: -40, y: 350 },
-    footR: { x: 40, y: 350 }
+    footL: { x: -40, y: 330 },
+    footR: { x: 40, y: 330 }
   };
 
   const bones = [
@@ -468,16 +529,6 @@
     });
   }
 
-
-
-  // ROW SWIPING
-
-  /**
-   * fetches an SVG file and injects its text into the target element
-   * @param {string} src — path to your .svg file
-   * @param {HTMLElement} targetEl — container where the inline SVG will go
-   */
-  // replace your loadInlineSVG with this
   function loadInlineSVG(src, targetEl) {
     // clear old content and show spinner
     targetEl.innerHTML = '';
@@ -811,7 +862,7 @@
       subtitle.textContent = "Click and drag over the face. You can add eyes, a nose, a mouth or whatever else you please.";
     } else if (stage === 4) {
       h1.textContent = "LET'S ADD A FEW MORE DETAILS!";
-      subtitle.textContent = "Tell us your character's name, and what their favourite thing to do in Punggol is.";
+      subtitle.textContent = "Tell us your character's name, and their favourite thing to do in Punggol.";
     }
   }
 
@@ -1118,7 +1169,9 @@
 
   // call this instead of relying on .head/.torso divs
   function drawFinalRig() {
-    // 1) hide carousel UI
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    // hide carousel UI
     ['head', 'torso', 'legs', 'shoes'].forEach(cat => {
       const el = document.querySelector(`.${cat}`);
       if (el) el.style.display = 'none';
@@ -1127,45 +1180,59 @@
       btn.style.display = 'none';
     });
 
-    // 2) clear any existing final images
-    document.querySelectorAll('image.final-img').forEach(img => img.remove());
+    // clear previous final images & base shape
+    svg.querySelectorAll('image.final-img, g.base-shape').forEach(el => el.remove());
 
-    // 3) get the four printed SVG URLs
+    // get the four printed SVG URLs
     const selections = carousels.map(c => c.images[c.currentIndex]);
 
-
-    console.log(selections)
-    // 4) compute joint centers
+    // compute joint centers
     const headCtr = nodes.head;
     const torsoCtr = {
       x: (nodes.shoulderL.x + nodes.shoulderR.x + nodes.hipL.x + nodes.hipR.x) / 4,
-      y: (nodes.shoulderL.y + nodes.shoulderR.y + nodes.hipL.y + nodes.hipR.y) / 4 + 10  // +10px down
+      y: (nodes.shoulderL.y + nodes.shoulderR.y + nodes.hipL.y + nodes.hipR.y) / 4 + 10
     };
     const legsCtr = {
       x: (nodes.kneeL.x + nodes.kneeR.x) / 2,
-      y: (nodes.kneeL.y + nodes.kneeR.y) / 2 - 30  // -30px up
+      y: (nodes.kneeL.y + nodes.kneeR.y) / 2 - 30
     };
     const shoesCtr = {
       x: (nodes.footL.x + nodes.footR.x) / 2,
-      y: (nodes.footL.y + nodes.footR.y) / 2 - 30  // -30px up
+      y: (nodes.footL.y + nodes.footR.y) / 2 - 30
     };
 
     const centers = [shoesCtr, legsCtr, torsoCtr, headCtr];
-    const sizes = [180, 250, 240, 130]; // match order
+    const sizes = [180, 250, 240, 130];
 
-    // 5) append in order so shoes are at bottom, head on top
+    // append outfit layers: shoes → legs → torso → head
     centers.forEach((ctr, i) => {
-      const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      const img = document.createElementNS(svgNS, 'image');
       img.classList.add('final-img');
       img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', selections[3 - i]);
-      // selections is [head, torso, legs, shoes], so selections[3] → shoes, [2]→legs, [1]→torso, [0]→head
       img.setAttribute('width', sizes[i]);
       img.setAttribute('height', sizes[i]);
       img.setAttribute('x', ctr.x - sizes[i] / 2);
       img.setAttribute('y', ctr.y - sizes[i] / 2);
       svg.appendChild(img);
     });
+
+    // overlay face strokes on the head
+    const faceCanvas = document.getElementById('faceCanvas');
+    if (faceCanvas.width && faceCanvas.height) {
+      const faceImg = document.createElementNS(svgNS, 'image');
+      faceImg.classList.add('final-img', 'face-overlay');
+      faceImg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', faceCanvas.toDataURL('image/png'));
+      faceImg.setAttribute('width', sizes[3]);
+      faceImg.setAttribute('height', sizes[3]);
+      faceImg.setAttribute('x', headCtr.x - sizes[3] / 2);
+      faceImg.setAttribute('y', headCtr.y - sizes[3] / 2);
+      svg.appendChild(faceImg);
+    }
+
+
   }
+
+
 
   function gatherCharacterData() {
     const selections = carousels.map(c => c.images[c.currentIndex]);
@@ -1177,6 +1244,28 @@
     const faceData = faceCanvas.toDataURL('image/png');
 
     return { selections, name, favThing, faceData };
+  }
+
+  async function uploadCharacter({ name, favThing, selections, faceData }) {
+    // 1) fetch the PNG blob
+    const blob = await (await fetch(faceData)).blob();
+
+    // 2) upload to Storage
+    const fileRef = window.ref(window.storage, `avatars/${Date.now()}.png`);
+    await window.uploadBytes(fileRef, blob);
+    const faceUrl = await window.getDownloadURL(fileRef);
+
+    // 3) save metadata to Firestore
+    await window.addDoc(
+      window.collection(window.db, "galleryCharacters"),
+      {
+        name,
+        favThing,
+        selections,
+        faceUrl,
+        createdAt: window.serverTimestamp()
+      }
+    );
   }
 
 
@@ -1286,6 +1375,17 @@
   });
 
 
+  const emailConsent = document.getElementById('emailConsent');
+  const emailInput = document.getElementById('emailAddress');
+
+  emailConsent.addEventListener('change', () => {
+    emailInput.disabled = !emailConsent.checked;
+    if (!emailConsent.checked) {
+      emailInput.value = '';
+    }
+  });
+
+
 
 
 
@@ -1337,6 +1437,7 @@
 
       // 3) now draw just the four printed svgs on the rig
       drawFinalRig();
+      canvasEl.style.display = 'none';
 
       console.log("DATA", gatherCharacterData());
       // 4) update UI
@@ -1350,14 +1451,27 @@
 
     else if (stage === 4) {
       //exportAvatarAsPNG();
-      const gallery = JSON.parse(localStorage.getItem('galleryCharacters') || '[]');
-      // 2. add new entry
-      gallery.push(gatherCharacterData());
-      // 3. write back
-      localStorage.setItem('galleryCharacters', JSON.stringify(gallery));
+      // const gallery = JSON.parse(localStorage.getItem('galleryCharacters') || '[]');
+      // // 2. add new entry
+      // gallery.push(gatherCharacterData());
+      // // 3. write back
+      // localStorage.setItem('galleryCharacters', JSON.stringify(gallery));
+
+      const data = gatherCharacterData();
+      uploadCharacter(data)
+        .then(() => {
+          console.log("✅ upload successful");
+          alert("avatar uploaded to Firebase!");
+          // now you can manually verify in the console/console.firebase.google.com
+          window.location.href = './gallery.html';
+        })
+        .catch(err => {
+          console.error("upload failed", err);
+          alert("upload failed—check console");
+        });
 
       // 4. go to gallery page
-      window.location.href = './gallery.html';
+      //window.location.href = './gallery.html';
     }
 
   });

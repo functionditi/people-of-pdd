@@ -24,7 +24,7 @@
     /* HEADER */
     .header {
       width: 100%;
-      background: white;
+
       padding-top: 30px;
     }
 
@@ -45,10 +45,16 @@
 
     /* Center section is absolutely centered, unaffected by side widths */
     .header-center {
-      position: absolute;
+      /* position: absolute; */
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
+      background: #f4b63d;
+
+      border-radius: 20px;
+      padding: 20px 30px;
+      transform-origin: center center;
+      transform: rotate(-2deg) !important;
     }
 
     /* Left and right columns */
@@ -87,7 +93,7 @@
 
     /* TITLE */
     .header-center h1 {
-      color: #2a9df4;
+      color: #c13a00;
       text-transform: uppercase;
       font-size: 2rem;
       /* letter-spacing: 2px; */
@@ -95,7 +101,7 @@
     }
 
     .subtitle {
-      color: #2a9df4;
+      color: #fff;
       font-size: 1rem;
       margin: 5px 0 0;
     }
@@ -289,6 +295,41 @@
 
     }
   </style>
+
+  <!-- firebase init -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      query,
+      orderBy,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    // ← your config from the console
+    const firebaseConfig = {
+      apiKey: "AIzaSyDwpNjnDFAA_5P64zMOt-GTSOdETx2xKJQ",
+      authDomain: "people-of-pdd-website.firebaseapp.com",
+      projectId: "people-of-pdd-website",
+      storageBucket: "people-of-pdd-website.firebasestorage.app",
+      messagingSenderId: "685048567158",
+      appId: "1:685048567158:web:abc51754b5b785219c1657",
+      measurementId: "G-1VRMYRMXKN"
+    };
+
+    // init
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // expose to your non-module script
+    window.db = db;
+    window.collection = collection;
+    window.query = query;
+    window.orderBy = orderBy;
+    window.getDocs = getDocs;
+  </script>
+
 </head>
 
 <body>
@@ -322,6 +363,9 @@
 
 
   <script>
+
+    //localStorage.clear();
+
     const CARD_W = 200 / 1.5;
     const CARD_H = 360 / 1.5;
     const container = document.getElementById('gallery-container');
@@ -335,17 +379,37 @@
     function goBack() { window.location.href = 'index.html'; }
 
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       // resize the gallery container to fill the remaining viewport
       resizeContainer();
 
       // load saved characters and render
-      const raw = localStorage.getItem('galleryCharacters');
-      const gallery = JSON.parse(raw || '[]');
-      gallery.forEach((data, i) => renderAvatar(data, i, 1));
+      // fetch from Firestore instead of localStorage
+      const q = window.query(
+        window.collection(window.db, "galleryCharacters"),
+        window.orderBy("createdAt", "desc")
+      );
+      const snap = await window.getDocs(q);
 
-      // initial layout
+      let i = 0;
+      snap.forEach(doc => {
+        const d = doc.data();
+        // note: faceUrl → faceData, selections, name, favThing
+        renderAvatar(
+          {
+            selections: d.selections,
+            faceData: d.faceUrl,
+            name: d.name,
+            favThing: d.favThing
+          },
+          i++,
+          1
+        );
+      });
+
+      // now do your layout
       brickLayout();
+
 
       // re‑layout on window resize
       window.addEventListener('resize', () => {
