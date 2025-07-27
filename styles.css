@@ -134,6 +134,7 @@ body {
     .header-top .text-back {
       background-color: #fff;
       color: #4a90e2;
+      font-size: 0.9rem;
     }
 
     .header-top .header-text {
@@ -2008,6 +2009,7 @@ body.stage-4 .carousel-nav {
 
     .header-top .text-back {
       /* display: none; */
+      font-size: 0.9rem;
     }
 
     .header-top .header-text {
@@ -2044,13 +2046,13 @@ body.stage-4 .carousel-nav {
     }
 
     .title-section h1 {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: #c13a00;
     }
 
 
     .title-section .subtitle {
-      font-size: 0.6rem;
+      font-size: 0.7rem;
       padding-top: 3px;
       color: #fff;
     }
@@ -2082,7 +2084,7 @@ body.stage-4 .carousel-nav {
       border: none;
       color: white;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1rem;
       padding: 15px 30px;
       border-radius: 15px;
       cursor: pointer;
@@ -2112,10 +2114,6 @@ body.stage-4 .carousel-nav {
       font-size: 1.2rem !important;
       line-height: 1 !important;
     }
-
-
-
-
 
 
 
