@@ -31,13 +31,13 @@
     <div class="header-top">
       <div class="back-buttons">
         <button id="goBackMain" class="circle-button small blue-bg" onclick="goBack()">←</button>
-        <h3 class="header-text">CREATE AN AVATAR!</h3>
-
-
+        <!-- <h3 class="header-text">CREATE AN AVATAR!</h3> -->
+        <button id="info-toggle" class="circle-button small yellow-bg" aria-label="info">?</button>
         <button class="text-back" onclick="goBack()">BACK TO MAIN PAGE</button>
       </div>
-      <button id="info-toggle" class="circle-button small yellow-bg" aria-label="info">?</button>
+
     </div>
+
 
     </div>
 
@@ -48,14 +48,15 @@
         <div class="step"></div>
         <div class="step"></div>
       </div>
-      <h1>CHOOSE YOUR CHARACTER'S BASIC OUTFIT USING THE LEFT AND RIGHT.</h1>
+      <h1>CHOOSE YOUR CHARACTER'S BASIC OUTFIT.</h1>
 
-      <p class="subtitle" style="display: none;">Use the left and right arrows for each section to choose.</p>
+      <p class="subtitle">Use the left and right arrows for each section to choose.</p>
+
     </div>
   </header>
 
   <!-- BUILDER: 4/6 -->
-  <main id="avatarExport" class="builder-section">
+  <main id=" avatarExport" class="builder-section">
     <div class="rig-background"></div>
     <svg id="rig" width="800" height="800" viewBox="0 0 800 800"></svg>
 
@@ -202,12 +203,14 @@
       NEXT
     </button>
 
+
   </footer>
 
   <div class="info-card">
     <button id="info-close" class="circle-button small yellow-bg" aria-label="close info">←</button>
     <h2>FEATURING ARTWORKS BY SHAPING HEARTS ARTISTS!</h2>
-    <p>Each clothing and print is built from artwork created by Shaping Hearts Artists Simeon and Ezra. Learn more about
+    <p>Each clothing and print is built from artwork created by Shaping Hearts Artists Simeon and Ezra. Learn more
+      about
       them below.</p>
     <div class="info-buttons">
       <a href="https://shapinghearts.cdc.gov.sg/simeon-tan-rui-en/" target="_blank" rel="noopener"
@@ -801,7 +804,7 @@
       h1.textContent = "CHOOSE YOUR CHARACTER'S BASIC OUTFIT.";
       subtitle.textContent = "Use the left and right arrows for each section to choose.";
     } else if (stage === 2) {
-      h1.textContent = "LET'S ADD SOME FUN PRINTS!";
+      h1.textContent = "LET'S ADD SOME FUN PRINTS AND PATTERNS!";
       subtitle.textContenqt = "Use the left and right arrows for each section to choose.";
     } else if (stage === 3) {
       h1.textContent = "GIVE YOUR CHARACTER A FACE!";

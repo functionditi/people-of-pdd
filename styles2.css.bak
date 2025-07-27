@@ -162,7 +162,7 @@ body {
 
     .title-section {
       margin-top: 5px;
-      background-color: #f4b63d;
+      background-color: #f7931e;
       border-radius: 20px;
 
       padding: 5px 20px 15px 20px;
@@ -171,14 +171,7 @@ body {
     }
 
     .title-section h1 {
-      font-size: 1.5rem;
-      color: #e53935;
-      padding: 10px;
-
-    }
-
-    .title-section p {
-      font-size: 1rem;
+      font-size: 1.2rem;
       color: #fff;
 
     }
@@ -1145,9 +1138,6 @@ body.stage-4 .right-panel {
   z-index: 1000;
 }
 
-.info-card #info-close {
-  display: none;
-}
 
 
 .info-card h2 {
@@ -1852,7 +1842,6 @@ body.stage-4 .carousel-nav {
   }
 
   .info-card #info-close {
-    display: block;
     position: absolute;
     top: 16px;
     left: 16px;
@@ -2007,7 +1996,7 @@ body.stage-4 .carousel-nav {
 
 
     .header-top .text-back {
-      /* display: none; */
+      display: none;
     }
 
     .header-top .header-text {
@@ -2015,18 +2004,17 @@ body.stage-4 .carousel-nav {
     }
 
     .header-top .circle-button {
-      color: #fff;
-      background-color: #2a9df4;
+      background-color: #fff;
+      color: #2a9df4;
     }
 
     .header-top #info-toggle {
       background-color: #f4b63d;
       color: #fff;
-      display: none;
     }
 
     .header-top {
-      background-color: none;
+      background-color: #58aaf7;
       border-radius: 20px;
     }
 
@@ -2042,18 +2030,9 @@ body.stage-4 .carousel-nav {
     }
 
     .title-section h1 {
-      font-size: 1.3rem;
-      color: #c13a00;
-    }
-
-
-    .title-section .subtitle {
-      font-size: 1rem;
-      padding-top: 10px;
+      font-size: 0.8rem;
       color: #fff;
     }
-
-
 
     /* .title-section .steps {} */
 
@@ -2110,7 +2089,6 @@ body.stage-4 .carousel-nav {
       font-size: 1.2rem !important;
       line-height: 1 !important;
     }
-
 
 
 
