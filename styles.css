@@ -1957,23 +1957,8 @@ body.stage-4 .carousel-nav {
 
 
 
-  /* 3.7 reserve bottom 1/3vh for bottom‑sheet in stage‑4 */
-  @media (max-width: 768px) {
-    body.stage-4 .builder-section {
-      padding-bottom: 33vh;
-    }
-  }
 
-  body.stage-4 .bottom-sheet,
-  body.stage-4 .card-input {
-    display: none !important;
-  }
 
-  /* push builder content up so it isn’t covered */
-  body.stage-4 .builder-section {
-    padding-bottom: 33vh;
-    /* same as sheet height */
-  }
 
 
 
@@ -2117,8 +2102,58 @@ body.stage-4 .carousel-nav {
 
 
 
+
   }
 
 
 
+
+}
+
+@media (max-width: 768px) {
+
+  /* 1) make the rig-background visible and blue */
+  /* body.stage-4 .rig-background {
+    border: 2px solid #4a90e2;
+    opacity: 1;
+    background-color: none;
+  } */
+
+  body.stage-4 .card-input {
+    display: none;
+  }
+
+
+  /* 2) cancel out any scale/translate from stage‑4, so your parts stay where they were */
+  body.stage-4 .head,
+  body.stage-4 .torso,
+  body.stage-4 .legs,
+  body.stage-4 .shoes {
+    transform: none !important;
+  }
+
+  /* 3) force the same mobile sizes you used in stages 1 & 2 */
+  body.stage-4 .head li {
+    width: 90px !important;
+    height: 90px !important;
+    margin-left: -45px !important;
+  }
+
+  body.stage-4 .torso li {
+    width: 170px !important;
+    height: 170px !important;
+    margin-left: -85px !important;
+  }
+
+  body.stage-4 .legs li {
+    width: 170px !important;
+    height: 170px !important;
+    margin-left: -85px !important;
+  }
+
+  body.stage-4 .shoes li {
+    width: 120px !important;
+    height: 120px !important;
+    margin-left: -60px !important;
+  }
 }
